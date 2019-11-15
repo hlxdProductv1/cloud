@@ -50,7 +50,7 @@ public class AuthorizedFilter implements Filter {
             String auth = jedis.get(Authorization);//获取用户信息
             UserInfo userInfo = JSONObject.parseObject(auth,UserInfo.class);//将json对象转成java对象
             String[] permission = userInfo.getPermissions();
-            boolean flag = false;
+            boolean flag = false;//需要放开所有权限可以在这里设置为true,下面判断内容省略
             for(String s:permission){
                 if(s.equals(url)){
                     flag = true;
