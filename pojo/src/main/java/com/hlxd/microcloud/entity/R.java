@@ -10,6 +10,7 @@ public class R<T> implements Serializable {
     public static final int SUCCESS = 0;
     public static final int FAIL = 1;
     public static final int NO_PERMISSION = 2;
+    public static final int NULL_PARAMETER = 4;
     private static final long serialVersionUID = 1L;
 
     private String msg = "success";

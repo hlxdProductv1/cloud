@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.mapper.OrganizeMapper">
+	
+	<!-- 树形控件 -->
+    <select id="organizeTree" resultType="com.hlxd.microcloud.entity.vo.OrganizeTree">
+        select 
+		organize_code as id,
+		organize_name as title,
+		superior_organize_code as parentId
+		from t_pro_organize
+		<where>
+		    <if test="organizeType!=null">
+		        and organize_type = #{organizeType}
+		    </if>
+		    <if test='organizeCode!=null and organizeCode!=""'>
+		        and organize_code = #{organizeCode}
+		    </if>
+		    <if test='superiorOrganizeCode!=null and superiorOrganizeCode!=""'>
+		        and superior_organize_code = #{superiorOrganizeCode}
+		    </if>
+		</where>
+    </select>
+    
+    <!-- 查询id空缺位 -->
+    <select id="vacancyOrganizeCode" resultType="java.lang.Integer">
+    	select 
+    	    cast(REVERSE(substring(REVERSE(organize_code),1,#{size})) as SIGNED INTEGER)-1 
+		from (select organize_code from t_pro_organize where organize_type = #{organizeType}
+		<if test='superiorOrganizeCode!=null and superiorOrganizeCode!=""'>
+			and superior_organize_code = #{superiorOrganizeCode}
+		</if>
+		order by organize_code asc) t 
+		where not exists (select 1 from t_pro_organize where organize_code=t.organize_code-1) limit 1,1
+    </select>
+    
+    <!-- 自增id -->
+    <select id="maxOrganizeCode" resultType="java.lang.Integer">
+		select 
+		<if test="organizeType == 1">
+			cast(organize_code as SIGNED INTEGER)+1 as organize_code 
+		</if>
+		<if test="organizeType != 1">
+			cast(REVERSE(substring(REVERSE(organize_code),1,#{size})) as SIGNED INTEGER)+1 organize_code
+		</if>
+		from t_pro_organize 
+		where organize_type = #{organizeType}
+		<if test='superiorOrganizeCode!=null and superiorOrganizeCode!=""'>
+			and superior_organize_code = #{superiorOrganizeCode}
+		</if>
+        order by organize_code desc limit 1;
+    </select>
+</mapper>
