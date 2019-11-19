@@ -27,7 +27,7 @@ mybatis-plus:
   global-config:
     db-column-underline: true
     refresh-mapper: true
-      
+        
 logging:
   level:
     com.hlxd.backstage.mapper: debug

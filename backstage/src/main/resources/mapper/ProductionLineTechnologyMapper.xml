@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.mapper.ProductionLineTechnologyMapper">
+
+    <select id="productionLine" parameterType="java.lang.String" resultType="com.hlxd.microcloud.entity.vo.ProductionLineVo">
+        select 
+		pl.id,
+		pl.production_line_code as  productionLineCode,
+		pl.technology_code as technologyCode,
+		pl.serial_number as serialNumber,
+		t.technology_name as technologyName,
+		t.organize_code as organizeCode,
+		ws.workshop_section_code as workshopSectionCode,
+		ws.workshop_section_name as workshopSectionName
+		from t_pro_production_line_technology pl
+		inner join t_pro_technology t
+		on pl.technology_code = t.technology_code
+		inner join t_pro_workshop_section ws
+		on ws.workshop_section_code = t.workshop_section_code
+		where pl.production_line_code = #{productionLineCode} order by pl.serial_number
+    </select>
+</mapper>

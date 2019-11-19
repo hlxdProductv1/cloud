@@ -52,6 +52,7 @@ public class OrganizeController {
 			r.setData(bl);
 		} else {
 			r.setCode(R.NULL_PARAMETER);
+			r.setData(false);
 			r.setMsg("The parameter is empty.");
 		}
 		return r;
@@ -72,6 +73,7 @@ public class OrganizeController {
 			r.setData(organizeService.insert(organize));
 		} else {
 			r.setCode(R.NULL_PARAMETER);
+			r.setData(false);
 			r.setMsg("The parameter is empty.");
 		}
 		return r;
@@ -126,6 +128,7 @@ public class OrganizeController {
 			result.setData(organizeService.updateById(entity));
 		}else {
 			result.setCode(R.NULL_PARAMETER);
+			result.setData(false);
 			result.setMsg("The parameter is empty.");
 		}
 		return result;
@@ -143,6 +146,7 @@ public class OrganizeController {
 			int count = organizeService.selectCount(new EntityWrapper<Organize>().eq("superior_organize_code", organizeCode));
 			if(count != 0) {
 				result.setCode(R.NO_PERMISSION);
+				result.setData(false);
 				result.setMsg("prohibition operation");
 			}else {
 				result.setCode(R.SUCCESS);
@@ -150,6 +154,7 @@ public class OrganizeController {
 			}
 		}else {
 			result.setCode(R.NULL_PARAMETER);
+			result.setData(false);
 			result.setMsg("The parameter is empty.");
 		}
 		return result;

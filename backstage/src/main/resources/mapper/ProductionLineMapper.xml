@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.mapper.ProductionLineMapper">
+
+	<!-- 排序 -->
+    <select id="maxSerialNumber" resultType="java.lang.Integer">
+        select 
+            max(serial_number) as max 
+        from t_pro_production_line 
+        where 
+            organize_code = #{organizeCode} and technology_workshop = #{technologyWorkshop}
+    </select>
+</mapper>

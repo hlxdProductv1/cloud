@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.mapper.TechnologyStandardMapper">
+    
+    <select id="list" parameterType="java.lang.String" resultType="com.hlxd.microcloud.entity.vo.TechnologyStandardVo">
+        select 
+		ts.standard_code as standardCode,
+		ts.standard_name as standardName,
+		ts.technology_code as technologyCode,
+		t.technology_name as technologyName,
+		ts.cigarette_code as cigaretteCode,
+		ts.standard_type as standardType,
+		ts.unit,
+		ts.standard_value as standardValue,
+		ts.maximum,
+		ts.minimum,
+		ts.fraction 
+		from t_pro_technology_standard ts
+		inner join t_pro_technology t
+		on ts.technology_code = t.technology_code
+		<where>
+		    <if test='technologyCode!=null and technologyCode!=""'>
+		        and ts.technology_code = #{technologyCode}
+		    </if>
+		</where>
+    </select>
+</mapper>
