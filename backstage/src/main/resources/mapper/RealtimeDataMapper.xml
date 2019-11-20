@@ -8,11 +8,12 @@
 		r.id,
 		r.collection_point as collectionPoint,
 		r.collection_value as collectionValue,
-		r.collection_time as collectionTime,
+		DATE_FORMAT(r.collection_time,'%Y-%m-%d %H:%i:%s') as collectionTime,
 		e.equipment_code as equipmentCode,
 		e.equipment_name as equipmentName,
 		t.standard_code as standardCode,
 		t.standard_name as standardName,
+		t.unit as unit,
 		pt.technology_code as technologyCode,
 		pt.technology_name as technologyName
 		from t_pro_realtime_data r 

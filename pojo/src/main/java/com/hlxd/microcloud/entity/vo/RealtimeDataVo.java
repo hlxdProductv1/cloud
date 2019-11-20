@@ -16,6 +16,7 @@ public class RealtimeDataVo implements Serializable{
 	private String collectionTime;
 	private String standardCode;
 	private String standardName;
+	private String unit;
 	private String equipmentCode;
 	private String equipmentName;
 	private String technologyCode;
