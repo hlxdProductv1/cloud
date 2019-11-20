@@ -13,13 +13,11 @@ import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.entity.Technology;
 import com.hlxd.microcloud.service.TechnologyService;
 
-/**
- * <p>
- * 生产工艺  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -生产工艺  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/technology")
@@ -28,6 +26,11 @@ public class TechnologyController {
 	@Autowired
 	private TechnologyService technologyService;
 	
+	/***
+	 * -添加生产工艺  
+	 * @param technology
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(Technology technology){
 		R<Boolean> r = new R<>();
@@ -47,6 +50,11 @@ public class TechnologyController {
 		return r;
 	}
 	
+	/***
+	 * -删除生产工艺  
+	 * @param technologyCode
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(String technologyCode){
 		R<Boolean> r = new R<>();
@@ -61,6 +69,12 @@ public class TechnologyController {
 		return r;
 	}
 	
+	/***
+	 * -修改生产工艺  
+	 * @param technologyCode
+	 * @param technologyName
+	 * @return
+	 */
 	@PostMapping("/update")
 	public R<Boolean> update(String technologyCode, String technologyName){
 		R<Boolean> r = new R<>();
@@ -78,6 +92,14 @@ public class TechnologyController {
 		return r;
 	}
 	
+	/***
+	 * -查询生产工艺  
+	 * @param current
+	 * @param size
+	 * @param technologyWorkshop
+	 * @param organizeCode
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<Page<Technology>> list(Integer current, Integer size, Integer technologyWorkshop, String organizeCode){
 		R<Page<Technology>> r = new R<Page<Technology>>();

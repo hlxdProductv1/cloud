@@ -6,13 +6,11 @@ import com.hlxd.microcloud.service.WorkshopSectionService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 生产工段  服务实现类
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -生产工段  服务实现类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @Service
 public class WorkshopSectionServiceImpl extends ServiceImpl<WorkshopSectionMapper, WorkshopSection> implements WorkshopSectionService {

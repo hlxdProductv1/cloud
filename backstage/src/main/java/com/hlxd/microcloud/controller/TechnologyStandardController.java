@@ -11,13 +11,11 @@ import com.hlxd.microcloud.entity.TechnologyStandard;
 import com.hlxd.microcloud.entity.vo.TechnologyStandardVo;
 import com.hlxd.microcloud.service.TechnologyStandardService;
 
-/**
- * <p>
- * 生产工艺标准  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-14
+/***
+ * - 生产工艺标准  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/technologyStandard")
@@ -26,6 +24,11 @@ public class TechnologyStandardController {
 	@Autowired
 	private TechnologyStandardService technologyStandardService;
 
+	/***
+	 * -查询单个生产工艺标准
+	 * @param standardCode
+	 * @return
+	 */
 	@GetMapping("/get")
 	public R<TechnologyStandard> get(String standardCode){
 		R<TechnologyStandard> r = new R<>();
@@ -39,6 +42,13 @@ public class TechnologyStandardController {
 		return r;
 	}
 	
+	/***
+	 * -查询系列生产工艺标准
+	 * @param current
+	 * @param size
+	 * @param technologyCode
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<Page<TechnologyStandardVo>> list(Integer current, Integer size, String technologyCode){
 		R<Page<TechnologyStandardVo>> r = new R<>();
@@ -52,6 +62,11 @@ public class TechnologyStandardController {
 		return r;
 	}
 	
+	/***
+	 * -添加生产工艺标准
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(TechnologyStandard entity){
 		R<Boolean> r = new R<>();
@@ -70,6 +85,11 @@ public class TechnologyStandardController {
 		return r;
 	}
 	
+	/***
+	 * -删除生产工艺标准
+	 * @param standardCode
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(String standardCode){
 		R<Boolean> r = new R<>();
@@ -84,6 +104,11 @@ public class TechnologyStandardController {
 		return r;
 	}
 	
+	/***
+	 * -修改生产工艺标准
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/update")
 	public R<Boolean> update(TechnologyStandard entity){
 		R<Boolean> r = new R<>();

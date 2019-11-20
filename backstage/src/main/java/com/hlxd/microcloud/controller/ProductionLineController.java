@@ -14,13 +14,11 @@ import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.service.ProductionLineService;
 import com.hlxd.microcloud.service.ProductionLineTechnologyService;
 
-/**
- * <p>
- * 工艺生产线  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-12
+/***
+ * -工艺生产线  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/productionLine")

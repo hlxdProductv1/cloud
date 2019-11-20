@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.mapper.OrganizeMapper">
 	
-	<!-- 树形控件 -->
+	<!-- 组织机构树 -->
     <select id="organizeTree" resultType="com.hlxd.microcloud.entity.vo.OrganizeTree">
         select 
 		organize_code as id,

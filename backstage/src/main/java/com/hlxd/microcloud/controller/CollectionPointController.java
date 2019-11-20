@@ -11,13 +11,11 @@ import com.hlxd.microcloud.entity.CollectionPoint;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.service.CollectionPointService;
 
-/**
- * <p>
- * 数采点  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-14
+/***
+ * -数采点  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/collectionPoint")
@@ -26,6 +24,11 @@ public class CollectionPointController {
 	@Autowired
 	private CollectionPointService collectionPointService;
 	
+	/***
+	 * -添加数采点
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(CollectionPoint entity){
 		R<Boolean> r = new R<Boolean>();
@@ -40,6 +43,11 @@ public class CollectionPointController {
 		return r;
 	}
 	
+	/***
+	 * -删除数采点
+	 * @param collectionPoint
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(String collectionPoint){
 		R<Boolean> r = new R<Boolean>();
@@ -54,6 +62,11 @@ public class CollectionPointController {
 		return r;
 	}
 	
+	/***
+	 * -查询数采点
+	 * @param equipmentCode
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<List<CollectionPoint>> list(String equipmentCode){
 		R<List<CollectionPoint>> r = new R<List<CollectionPoint>>();

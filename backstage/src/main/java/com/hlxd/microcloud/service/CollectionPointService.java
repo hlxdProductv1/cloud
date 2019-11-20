@@ -3,13 +3,11 @@ package com.hlxd.microcloud.service;
 import com.hlxd.microcloud.entity.CollectionPoint;
 import com.baomidou.mybatisplus.service.IService;
 
-/**
- * <p>
- * 数采点  服务类
- * </p>
- *
- * @author admin
- * @since 2019-11-14
+/***
+ * -数采点  服务类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 public interface CollectionPointService extends IService<CollectionPoint> {
 

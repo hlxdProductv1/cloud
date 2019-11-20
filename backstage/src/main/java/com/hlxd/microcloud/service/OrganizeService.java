@@ -5,15 +5,20 @@ import com.baomidou.mybatisplus.service.IService;
 import com.hlxd.microcloud.entity.Organize;
 import com.hlxd.microcloud.entity.vo.OrganizeTree;
 
-/**
- * <p>
- * 组织机构 服务类
- * </p>
- *
- * @author admin
- * @since 2019-11-11
+/***
+ * -组织机构 服务类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 public interface OrganizeService extends IService<Organize> {
+	/***
+	 * -查询组织机构树
+	 * @param organizeType
+	 * @param organizeCode
+	 * @param superiorOrganizeCode
+	 * @return
+	 */
 	List<OrganizeTree> organizeTree(Integer organizeType, String organizeCode, String superiorOrganizeCode);
 	/***
 	 * -组织机构id生成规则

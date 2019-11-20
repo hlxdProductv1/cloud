@@ -3,13 +3,11 @@ package com.hlxd.microcloud.mapper;
 import com.hlxd.microcloud.entity.Workshop;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * <p>
- * 车间表  Mapper 接口
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -车间表  Mapper 接口
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 public interface WorkshopMapper extends BaseMapper<Workshop> {
 

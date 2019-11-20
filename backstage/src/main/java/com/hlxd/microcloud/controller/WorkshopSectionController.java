@@ -12,13 +12,11 @@ import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.entity.WorkshopSection;
 import com.hlxd.microcloud.service.WorkshopSectionService;
 
-/**
- * <p>
- * 生产工段  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -生产工段  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/workshopSection")
@@ -27,6 +25,13 @@ public class WorkshopSectionController {
 	@Autowired
 	private WorkshopSectionService workshopSection;
 	
+	/***
+	 * -添加生产工段
+	 * @param workshopSectionName
+	 * @param organizeCode
+	 * @param technologyWorkshop
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(String workshopSectionName, String organizeCode, Integer technologyWorkshop){
 		R<Boolean> r = new R<Boolean>();
@@ -49,6 +54,11 @@ public class WorkshopSectionController {
 		return r;
 	}
 	
+	/***
+	 * -删除生产工段
+	 * @param workshopSectionCode
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(String workshopSectionCode){
 		R<Boolean> r = new R<Boolean>();
@@ -63,6 +73,11 @@ public class WorkshopSectionController {
 		return r;
 	}
 	
+	/***
+	 * -修改生产工段
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/update")
 	public R<Boolean> update(WorkshopSection entity){
 		R<Boolean> r = new R<Boolean>();
@@ -78,6 +93,12 @@ public class WorkshopSectionController {
 		return r;
 	}
 	
+	/***
+	 * -查询生产工段
+	 * @param organizeCode
+	 * @param technologyWorkshop
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<List<WorkshopSection>> list(String organizeCode, Integer technologyWorkshop){
 		R<List<WorkshopSection>> r = new R<List<WorkshopSection>>();

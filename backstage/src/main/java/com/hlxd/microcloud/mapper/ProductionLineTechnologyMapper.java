@@ -6,15 +6,18 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * <p>
- * 工艺生产线工艺  Mapper 接口
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -工艺生产线工艺  Mapper 接口
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 public interface ProductionLineTechnologyMapper extends BaseMapper<ProductionLineTechnology> {
 
+	/***
+	 * -展示生产工艺
+	 * @param productionLineCode
+	 * @return
+	 */
 	List<ProductionLineVo> productionLine(@Param("productionLineCode")String productionLineCode);
 }

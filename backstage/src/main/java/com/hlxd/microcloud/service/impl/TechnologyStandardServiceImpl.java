@@ -10,13 +10,11 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 生产工艺标准  服务实现类
- * </p>
- *
- * @author admin
- * @since 2019-11-14
+/***
+ * -生产工艺标准  服务实现类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @Service
 public class TechnologyStandardServiceImpl extends ServiceImpl<TechnologyStandardMapper, TechnologyStandard> implements TechnologyStandardService {
@@ -26,7 +24,6 @@ public class TechnologyStandardServiceImpl extends ServiceImpl<TechnologyStandar
 	
 	@Override
 	public Page<TechnologyStandardVo> list(Page<TechnologyStandardVo> page, String technologyCode) {
-		// TODO Auto-generated method stub
 		return page.setRecords(technologyStandardMapper.list(page,technologyCode));
 	}
 

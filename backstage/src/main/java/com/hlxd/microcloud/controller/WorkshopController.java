@@ -11,10 +11,10 @@ import com.hlxd.microcloud.entity.Workshop;
 import com.hlxd.microcloud.service.WorkshopService;
 
 /***
- * 车间表  前端控制器
+ * -车间表  前端控制器
  * @version 1.0
  * @author SmallOath
- * @date 2019年11月19日
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/workshop")
@@ -23,6 +23,10 @@ public class WorkshopController {
 	@Autowired
 	private WorkshopService workshopService;
 	
+	/***
+	 * -查询车间
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<List<Workshop>> list(){
 		R<List<Workshop>> r = new R<>();
@@ -31,6 +35,11 @@ public class WorkshopController {
 		return r;
 	}
 	
+	/***
+	 * -添加车间
+	 * @param workshopName
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(String workshopName){
 		R<Boolean> r = new R<>();
@@ -45,6 +54,11 @@ public class WorkshopController {
 		return r;
 	}
 	
+	/***
+	 * -修改车间
+	 * @param workshop
+	 * @return
+	 */
 	@PostMapping("/update")
 	public R<Boolean> update(Workshop workshop){
 		R<Boolean> r = new R<>();
@@ -60,6 +74,11 @@ public class WorkshopController {
 		return r;
 	}
 	
+	/***
+	 * -删除车间
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(Integer id){
 		R<Boolean> r = new R<>();

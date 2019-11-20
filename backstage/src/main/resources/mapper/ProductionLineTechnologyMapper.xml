@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.mapper.ProductionLineTechnologyMapper">
 
+	<!-- 生产线生产工艺查询 -->
     <select id="productionLine" parameterType="java.lang.String" resultType="com.hlxd.microcloud.entity.vo.ProductionLineVo">
         select 
 		pl.id,

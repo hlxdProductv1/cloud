@@ -16,13 +16,11 @@ import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.entity.vo.OrganizeTree;
 import com.hlxd.microcloud.service.OrganizeService;
 
-/**
- * <p>
+/***
  * -组织机构 前端控制器
- * </p>
- * 
- * @author admin
- * @since 2019-11-11
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/organize")
@@ -31,6 +29,11 @@ public class OrganizeController {
 	@Autowired
 	private OrganizeService organizeService;
 
+	/***
+	 * -批量添加组织结构
+	 * @param entityList
+	 * @return
+	 */
 	@PostMapping("/saveBatch")
 	@Transactional
 	public R<Boolean> saveBatch(@RequestBody List<Organize> entityList) {
@@ -60,7 +63,6 @@ public class OrganizeController {
 	
 	/***
 	 * -插入组织结构
-	 * 
 	 * @param entityList
 	 * @return
 	 */
@@ -160,6 +162,12 @@ public class OrganizeController {
 		return result;
 	}
 	
+	/***
+	 * -获取新组织机构UUID
+	 * @param organizeType
+	 * @param superiorOrganizeCode
+	 * @return
+	 */
 	@GetMapping("/uuid")
 	public StringBuilder uuid(Integer organizeType, String superiorOrganizeCode) {
 		return organizeService.uuid(organizeType, superiorOrganizeCode);

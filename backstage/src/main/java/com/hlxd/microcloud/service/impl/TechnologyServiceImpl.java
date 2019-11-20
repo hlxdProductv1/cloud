@@ -6,13 +6,11 @@ import com.hlxd.microcloud.service.TechnologyService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 生产工艺  服务实现类
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * - 生产工艺  服务实现类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @Service
 public class TechnologyServiceImpl extends ServiceImpl<TechnologyMapper, Technology> implements TechnologyService {

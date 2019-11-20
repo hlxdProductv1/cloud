@@ -13,13 +13,11 @@ import com.hlxd.microcloud.entity.Equipment;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.service.EquipmentService;
 
-/**
- * <p>
- * 设备  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-14
+/***
+ * -设备控制层
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @RestController
 @RequestMapping("/equipment")
@@ -28,6 +26,11 @@ public class EquipmentController {
 	@Autowired
 	private EquipmentService equipmentService;
 	
+	/***
+	 * -添加设备
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/save")
 	public R<Boolean> save(Equipment entity){
 		R<Boolean> r = new R<Boolean>();
@@ -46,6 +49,11 @@ public class EquipmentController {
 		return r;
 	}
 	
+	/***
+	 * -修改设备
+	 * @param entity
+	 * @return
+	 */
 	@PostMapping("/update")
 	public R<Boolean> update(Equipment entity){
 		R<Boolean> r = new R<Boolean>();
@@ -60,6 +68,11 @@ public class EquipmentController {
 		return r;
 	}
 	
+	/***
+	 * -删除设备
+	 * @param equipmentCode
+	 * @return
+	 */
 	@PostMapping("/remove")
 	public R<Boolean> remove(String equipmentCode){
 		R<Boolean> r = new R<Boolean>();
@@ -81,6 +94,11 @@ public class EquipmentController {
 		return r;
 	}
 	
+	/***
+	 * -查询单个设备
+	 * @param equipmentCode
+	 * @return
+	 */
 	@GetMapping("/get")
 	public R<Equipment> get(String equipmentCode){
 		R<Equipment> r = new R<Equipment>();
@@ -94,6 +112,15 @@ public class EquipmentController {
 		return r;
 	}
 	
+	/***
+	 * -查询设备列表
+	 * @param current
+	 * @param size
+	 * @param organizeCode
+	 * @param equipmentType
+	 * @param superiorEquipmentCode
+	 * @return
+	 */
 	@GetMapping("/list")
 	public R<Page<Equipment>> list(Integer current, Integer size, String organizeCode, Integer equipmentType, String superiorEquipmentCode){
 		R<Page<Equipment>> r = new R<>();

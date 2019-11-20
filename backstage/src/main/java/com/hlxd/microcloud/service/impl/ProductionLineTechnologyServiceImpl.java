@@ -9,13 +9,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 工艺生产线工艺  服务实现类
- * </p>
- *
- * @author admin
- * @since 2019-11-13
+/***
+ * -工艺生产线工艺  服务实现类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @Service
 public class ProductionLineTechnologyServiceImpl extends ServiceImpl<ProductionLineTechnologyMapper, ProductionLineTechnology> implements ProductionLineTechnologyService {
@@ -25,7 +23,6 @@ public class ProductionLineTechnologyServiceImpl extends ServiceImpl<ProductionL
 	
 	@Override
 	public List<ProductionLineVo> productionLine(String productionLineCode) {
-		// TODO Auto-generated method stub
 		return productionLineTechnologyMapper.productionLine(productionLineCode);
 	}
 

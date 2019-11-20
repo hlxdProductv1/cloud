@@ -9,13 +9,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- * 组织机构 服务实现类
- * </p>
- *
- * @author admin
- * @since 2019-11-11
+/***
+ * -组织机构 服务实现类
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
  */
 @Service
 public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> implements OrganizeService {
@@ -28,9 +26,6 @@ public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> i
 		return organizeMapper.organizeTree(organizeType, organizeCode, superiorOrganizeCode);
 	}
 	
-	/***
-	 * -可解读性id
-	 */
 	@Override
 	public StringBuilder uuid(Integer organizeType, String superiorOrganizeCode) {
 		Integer id = organizeMapper.vacancyOrganizeCode(organizeType, organizeType+1, superiorOrganizeCode);

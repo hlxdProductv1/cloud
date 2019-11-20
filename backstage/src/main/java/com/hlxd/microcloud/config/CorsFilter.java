@@ -1,10 +1,21 @@
 package com.hlxd.microcloud.config;
 
 import org.springframework.stereotype.Component;
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/***
+ * -跨域访问
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月20日
+ */
 @Component
 public class CorsFilter implements Filter {
 

@@ -7,13 +7,20 @@ import com.hlxd.microcloud.entity.Organize;
 import com.hlxd.microcloud.entity.vo.OrganizeTree;
 
 /***
- * 组织机构 Mapper 接口
+ * -组织机构 Mapper 接口
  * @version 1.0
  * @author SmallOath
  * @date 2019年11月18日
  */
 public interface OrganizeMapper extends BaseMapper<Organize> {
 	
+	/***
+	 * -查询组织机构树
+	 * @param organizeType
+	 * @param organizeCode
+	 * @param superiorOrganizeCode
+	 * @return
+	 */
 	List<OrganizeTree> organizeTree(@Param("organizeType")Integer organizeType, @Param("organizeCode")String organizeCode, @Param("superiorOrganizeCode")String superiorOrganizeCode);
 	/***
 	 * -空缺id
