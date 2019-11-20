@@ -4,7 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.hlxd.microcloud.entity.Organize;
-import com.hlxd.microcloud.entity.vo.OrganizeTree;
+import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 
 /***
  * -组织机构 Mapper 接口
@@ -21,7 +21,7 @@ public interface OrganizeMapper extends BaseMapper<Organize> {
 	 * @param superiorOrganizeCode
 	 * @return
 	 */
-	List<OrganizeTree> organizeTree(@Param("organizeType")Integer organizeType, @Param("organizeCode")String organizeCode, @Param("superiorOrganizeCode")String superiorOrganizeCode);
+	List<OrganizeTreeVo> organizeTree(@Param("organizeType")Integer organizeType, @Param("organizeCode")String organizeCode, @Param("superiorOrganizeCode")String superiorOrganizeCode);
 	/***
 	 * -空缺id
 	 * @param organizeType 组织类型

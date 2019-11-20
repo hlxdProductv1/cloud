@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.mapper.RealtimeDataMapper">
+
+	<!-- 查询实时数据 -->
+	<select id="realtimeDataVo" parameterType="java.lang.String" resultType="com.hlxd.microcloud.entity.vo.RealtimeDataVo">
+		select 
+		r.id,
+		r.collection_point as collectionPoint,
+		r.collection_value as collectionValue,
+		r.collection_time as collectionTime,
+		e.equipment_code as equipmentCode,
+		e.equipment_name as equipmentName,
+		t.standard_code as standardCode,
+		t.standard_name as standardName,
+		pt.technology_code as technologyCode,
+		pt.technology_name as technologyName
+		from t_pro_realtime_data r 
+		inner join t_pro_collection_point c
+		on r.collection_point = c.collection_point
+		inner join t_pro_equipment e
+		on c.equipment_code = e.equipment_code
+		inner join t_pro_technology_standard t
+		on c.standard_code = t.standard_code
+		inner join t_pro_technology pt
+		on pt.technology_code = t.technology_code
+		where r.collection_point = #{collectionPoint}
+		and r.collection_time &lt;= #{collectionTime} order by r.collection_time limit 0,10
+	</select>
+</mapper>

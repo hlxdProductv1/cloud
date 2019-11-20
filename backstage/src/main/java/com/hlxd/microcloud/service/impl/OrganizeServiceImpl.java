@@ -2,7 +2,7 @@ package com.hlxd.microcloud.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.hlxd.microcloud.entity.Organize;
-import com.hlxd.microcloud.entity.vo.OrganizeTree;
+import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 import com.hlxd.microcloud.mapper.OrganizeMapper;
 import com.hlxd.microcloud.service.OrganizeService;
 import java.util.List;
@@ -22,7 +22,7 @@ public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> i
 	private OrganizeMapper organizeMapper;
 	
 	@Override
-	public List<OrganizeTree> organizeTree(Integer organizeType,String organizeCode, String superiorOrganizeCode) {
+	public List<OrganizeTreeVo> organizeTree(Integer organizeType,String organizeCode, String superiorOrganizeCode) {
 		return organizeMapper.organizeTree(organizeType, organizeCode, superiorOrganizeCode);
 	}
 	

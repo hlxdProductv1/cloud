@@ -3,7 +3,7 @@
 <mapper namespace="com.hlxd.microcloud.mapper.OrganizeMapper">
 	
 	<!-- 组织机构树 -->
-    <select id="organizeTree" resultType="com.hlxd.microcloud.entity.vo.OrganizeTree">
+    <select id="organizeTree" resultType="com.hlxd.microcloud.entity.vo.OrganizeTreeVo">
         select 
 		organize_code as id,
 		organize_name as title,

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.hlxd.microcloud.entity.Organize;
 import com.hlxd.microcloud.entity.R;
-import com.hlxd.microcloud.entity.vo.OrganizeTree;
+import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 import com.hlxd.microcloud.service.OrganizeService;
 
 /***
@@ -87,9 +87,9 @@ public class OrganizeController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	public R<List<OrganizeTree>> list(String organizeCode){
-		R<List<OrganizeTree>> r = new R<>();
-		List<OrganizeTree> tree = organizeService.organizeTree(1, organizeCode, null);
+	public R<List<OrganizeTreeVo>> list(String organizeCode){
+		R<List<OrganizeTreeVo>> r = new R<>();
+		List<OrganizeTreeVo> tree = organizeService.organizeTree(1, organizeCode, null);
 		digui(tree);
 		r.setCode(R.SUCCESS);
 		r.setData(tree);
@@ -100,9 +100,9 @@ public class OrganizeController {
 	 * -循环树形结构
 	 * @param list
 	 */
-	private void digui(List<OrganizeTree> list) {
-		List<OrganizeTree> tree = new ArrayList<OrganizeTree>();
-        for (OrganizeTree c : list) {
+	private void digui(List<OrganizeTreeVo> list) {
+		List<OrganizeTreeVo> tree = new ArrayList<OrganizeTreeVo>();
+        for (OrganizeTreeVo c : list) {
         	tree = organizeService.organizeTree(null, null, c.getId());
             if (tree.size() > 0) {
             	c.setChildren(tree);

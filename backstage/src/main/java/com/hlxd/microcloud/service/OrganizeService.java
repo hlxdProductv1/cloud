@@ -3,7 +3,7 @@ package com.hlxd.microcloud.service;
 import java.util.List;
 import com.baomidou.mybatisplus.service.IService;
 import com.hlxd.microcloud.entity.Organize;
-import com.hlxd.microcloud.entity.vo.OrganizeTree;
+import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 
 /***
  * -组织机构 服务类
@@ -19,7 +19,7 @@ public interface OrganizeService extends IService<Organize> {
 	 * @param superiorOrganizeCode
 	 * @return
 	 */
-	List<OrganizeTree> organizeTree(Integer organizeType, String organizeCode, String superiorOrganizeCode);
+	List<OrganizeTreeVo> organizeTree(Integer organizeType, String organizeCode, String superiorOrganizeCode);
 	/***
 	 * -组织机构id生成规则
 	 * @param type 组织类型
