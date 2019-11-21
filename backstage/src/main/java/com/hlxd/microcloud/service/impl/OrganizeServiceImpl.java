@@ -43,7 +43,9 @@ public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> i
 				builder.insert(0,"0");
 			}
 		}
-		builder.insert(0,superiorOrganizeCode);
+		if(superiorOrganizeCode!=null && !"".equals(superiorOrganizeCode)) {
+			builder.insert(0,superiorOrganizeCode);
+		}
 		return builder;
 	}
 

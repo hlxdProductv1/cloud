@@ -14,6 +14,10 @@ public class R<T> implements Serializable {
      * 必选参数为空
      */
     public static final int NULL_PARAMETER = 4;
+    /**
+     * 系统内部异常
+     */
+    public static final int SYSTEM_EXCEPTION = 500;
     private static final long serialVersionUID = 1L;
 
     private String msg = "success";

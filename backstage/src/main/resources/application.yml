@@ -27,7 +27,14 @@ mybatis-plus:
   global-config:
     db-column-underline: true
     refresh-mapper: true
-        
+
+#log日志
 logging:
-  level:
-    com.hlxd.backstage.mapper: debug
+ path: /users/backstage/log
+ level:
+  com:
+   favorites: ALL
+  org:
+    springframework:
+     web: ALL
+    hibernate: ALL
