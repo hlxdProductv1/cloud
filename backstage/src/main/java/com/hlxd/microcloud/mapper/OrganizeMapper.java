@@ -36,4 +36,10 @@ public interface OrganizeMapper extends BaseMapper<Organize> {
 	 * @return
 	 */
 	Integer maxOrganizeCode(@Param("organizeType")Integer organizeType, @Param("size") Integer size,@Param("superiorOrganizeCode") String superiorOrganizeCode);
+	/***
+	 * -上级类型
+	 * @param superiorOrganizeCode
+	 * @return
+	 */
+    Integer superiororganizeType(@Param("superiorOrganizeCode")String superiorOrganizeCode);
 }

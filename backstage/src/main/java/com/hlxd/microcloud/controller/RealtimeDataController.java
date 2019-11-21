@@ -37,7 +37,7 @@ public class RealtimeDataController {
 			baseResp.setData(realtimeDataService.realtimeDataVo(collectionPoint, collectionTime));
 		}else {
 			baseResp.setCode(R.NULL_PARAMETER);
-			baseResp.setMsg("The parameter is empty.");
+			baseResp.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return baseResp;
 	}

@@ -49,7 +49,7 @@ public class WorkshopController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -69,7 +69,7 @@ public class WorkshopController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -88,7 +88,7 @@ public class WorkshopController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

@@ -38,7 +38,7 @@ public class CollectionPointController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -57,7 +57,7 @@ public class CollectionPointController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -75,7 +75,7 @@ public class CollectionPointController {
 			r.setData(collectionPointService.selectList(new EntityWrapper<CollectionPoint>().eq("equipment_code", equipmentCode)));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

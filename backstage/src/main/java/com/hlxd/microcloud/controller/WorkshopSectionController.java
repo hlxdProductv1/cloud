@@ -39,7 +39,7 @@ public class WorkshopSectionController {
 				&& organizeCode!=null && !"".equals(organizeCode)) {
 			WorkshopSection entity = new WorkshopSection();
 			StringBuilder code = new StringBuilder(organizeCode);
-			code.append(Calendar.getInstance().getTimeInMillis()+"");
+			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
 			entity.setWorkshopSectionCode(code.toString());
 			entity.setWorkshopSectionName(workshopSectionName);
@@ -49,7 +49,7 @@ public class WorkshopSectionController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -68,7 +68,7 @@ public class WorkshopSectionController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -88,7 +88,7 @@ public class WorkshopSectionController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -108,7 +108,7 @@ public class WorkshopSectionController {
 				.and().eq("technology_workshop", technologyWorkshop).or().isNull("organize_code")));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

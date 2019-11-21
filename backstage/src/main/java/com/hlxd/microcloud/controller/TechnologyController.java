@@ -36,7 +36,7 @@ public class TechnologyController {
 		R<Boolean> r = new R<>();
 		if(technology!=null && technology.getWorkshopSectionCode()!=null && technology.getTechnologyWorkshop()!=null) {
 			StringBuilder code = new StringBuilder(technology.getOrganizeCode());
-			code.append(Calendar.getInstance().getTimeInMillis()+"");
+			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
 			technology.setTechnologyCode(code.toString());
 			technology.setOrganizeCode("".equals(technology.getOrganizeCode())?null:technology.getOrganizeCode());
@@ -45,7 +45,7 @@ public class TechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -64,7 +64,7 @@ public class TechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -87,7 +87,7 @@ public class TechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -109,7 +109,7 @@ public class TechnologyController {
 					.and().eq("organize_code", organizeCode).or().isNull("organize_code")));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

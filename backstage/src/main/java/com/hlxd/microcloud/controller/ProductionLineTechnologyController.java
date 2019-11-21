@@ -41,7 +41,7 @@ public class ProductionLineTechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -64,7 +64,7 @@ public class ProductionLineTechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -83,7 +83,7 @@ public class ProductionLineTechnologyController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -101,7 +101,7 @@ public class ProductionLineTechnologyController {
 			r.setData(productionLineTechnologyService.productionLine(productionLineCode));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

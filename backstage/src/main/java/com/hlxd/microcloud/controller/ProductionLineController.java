@@ -42,7 +42,7 @@ public class ProductionLineController {
 			result.setData(productionLineService.selectList(new EntityWrapper<ProductionLine>().eq("organize_code", organizeCode).eq("technology_workshop", technologyWorkshop).orderBy("serial_number")));
 		}else {
 			result.setCode(R.NULL_PARAMETER);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -71,7 +71,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -93,7 +93,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -121,7 +121,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}

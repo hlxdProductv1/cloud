@@ -1,7 +1,6 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +35,7 @@ public class EquipmentController {
 		R<Boolean> r = new R<Boolean>();
 		if(entity!=null) {
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
-			code.append(Calendar.getInstance().getTimeInMillis()+"");
+			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
 			entity.setEquipmentCode(code.toString());
 			r.setCode(R.SUCCESS);
@@ -44,7 +43,7 @@ public class EquipmentController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -63,7 +62,7 @@ public class EquipmentController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -84,12 +83,12 @@ public class EquipmentController {
 			}else {
 				r.setCode(R.NO_PERMISSION);
 				r.setData(false);
-				r.setMsg("no permission.");
+				r.setMsg(R.NO_PERMISSION_MSG);
 			}
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -97,6 +96,7 @@ public class EquipmentController {
 	/***
 	 * -查询单个设备
 	 * @param equipmentCode
+	 * @exception UserNotFoundException
 	 * @return
 	 */
 	@GetMapping("/get")
@@ -104,10 +104,14 @@ public class EquipmentController {
 		R<Equipment> r = new R<Equipment>();
 		if(equipmentCode!=null && !"".equals(equipmentCode)) {
 			r.setCode(R.SUCCESS);
-			r.setData(equipmentService.selectById(equipmentCode));
+			Equipment entity = equipmentService.selectById(equipmentCode);
+			r.setData(entity);
+			if(entity==null) {
+				r.setMsg(R.NULL_QUERY);
+			}
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -135,7 +139,7 @@ public class EquipmentController {
 			}
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
