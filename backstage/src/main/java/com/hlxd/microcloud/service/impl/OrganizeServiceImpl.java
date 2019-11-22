@@ -6,7 +6,6 @@ import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 import com.hlxd.microcloud.mapper.OrganizeMapper;
 import com.hlxd.microcloud.service.OrganizeService;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
