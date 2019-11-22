@@ -47,4 +47,13 @@ public class CollectionPoint extends Model<CollectionPoint> {
         return this.collectionPoint;
     }
 
+    public CollectionPoint() {}
+
+	public CollectionPoint(String collectionPoint, String standardCode, String equipmentCode) {
+		super();
+		this.collectionPoint = collectionPoint;
+		this.standardCode = standardCode;
+		this.equipmentCode = equipmentCode;
+	}
+    
 }

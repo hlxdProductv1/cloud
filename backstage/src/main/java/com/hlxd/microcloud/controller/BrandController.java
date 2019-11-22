@@ -1,6 +1,7 @@
 package com.hlxd.microcloud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,9 +31,10 @@ public class BrandController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	public R<Boolean> save(Brand entity){
+	public R<Boolean> save(String brandCode, String brandName, String organizeCode){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null) {
+		if(brandCode!=null && !"".equals(brandCode) && brandName!=null && !"".equals(brandName) && organizeCode!=null && !"".equals(organizeCode)) {
+			Brand entity = new Brand(brandCode,brandName,organizeCode);
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.insert(entity));
 		}else {
@@ -89,7 +91,7 @@ public class BrandController {
 	 * @param entity
 	 * @return
 	 */
-	@PostMapping("/get")
+	@GetMapping("/get")
 	public R<Brand> get(String brandCode){
 		R<Brand> r = new R<Brand>();
 		if(brandCode!=null && !"".equals(brandCode)) {
@@ -107,7 +109,7 @@ public class BrandController {
 	 * @param entity
 	 * @return
 	 */
-	@PostMapping("/list")
+	@GetMapping("/list")
 	public R<Page<Brand>> list(Integer current, Integer size, String organizeCode){
 		R<Page<Brand>> r = new R<Page<Brand>>();
 		if(current!=null && size!=null && organizeCode!=null && !"".equals(organizeCode)) {

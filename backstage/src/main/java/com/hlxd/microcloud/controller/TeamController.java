@@ -3,6 +3,7 @@ package com.hlxd.microcloud.controller;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,17 +12,16 @@ import com.hlxd.microcloud.entity.Team;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.service.TeamService;
 
-/**
- * <p>
- * 班组表  前端控制器
- * </p>
- *
- * @author admin
- * @since 2019-11-21
+/***
+ * -班组表  前端控制器
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年11月21日
  */
 @RestController
 @RequestMapping("/team")
 public class TeamController {
+	
 	@Autowired
 	private TeamService teamService;
 	
@@ -35,12 +35,12 @@ public class TeamController {
 		R<Boolean> r = new R<Boolean>();
 		if(organizeCode!=null && teamName!=null && !"".equals(teamName) && !"".equals(organizeCode)) {
 			Team entity = new Team();
+			entity.setOrganizeCode(organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
 			entity.setTeamCode(code.toString());
 			entity.setTeamName(teamName);
-			entity.setOrganizeCode(organizeCode);
 			r.setCode(R.SUCCESS);
 			r.setData(teamService.insert(entity));
 		}else {
@@ -97,7 +97,7 @@ public class TeamController {
 	 * @param entity
 	 * @return
 	 */
-	@PostMapping("/list")
+	@GetMapping("/list")
 	public R<List<Team>> list(String organizeCode){
 		R<List<Team>> r = new R<List<Team>>();
 		if(organizeCode!=null && !"".equals(organizeCode)) {

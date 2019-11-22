@@ -31,9 +31,11 @@ public class EquipmentController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	public R<Boolean> save(Equipment entity){
+	public R<Boolean> save(String equipmentName, String superiorEquipmentCode, Integer equipmentType, String organizeCode){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null) {
+		if(equipmentName!=null && equipmentType!=null && organizeCode!=null
+				&& !"".equals(equipmentName) && !"".equals(organizeCode)) {
+			Equipment entity = new Equipment(equipmentName, superiorEquipmentCode, equipmentType, organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
@@ -54,9 +56,10 @@ public class EquipmentController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public R<Boolean> update(Equipment entity){
+	public R<Boolean> update(String equipmentCode, String equipmentName){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null && entity.getEquipmentCode()!=null && !"".equals(entity.getEquipmentCode())) {
+		if(equipmentName!=null && !"".equals(equipmentName) && equipmentCode!=null && !"".equals(equipmentCode)) {
+			Equipment entity = new Equipment(equipmentCode, equipmentName);
 			r.setCode(R.SUCCESS);
 			r.setData(equipmentService.updateById(entity));
 		}else {

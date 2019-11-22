@@ -46,4 +46,10 @@ public class Brand extends Model<Brand> {
         return this.brandCode;
     }
 
+    public Brand() {}
+    public Brand(String brandCode, String brandName, String organizeCode) {
+    	this.brandCode = brandCode;
+    	this.brandName = brandName;
+    	this.organizeCode = organizeCode;
+    }
 }

@@ -3,6 +3,7 @@ package com.hlxd.microcloud.controller;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,11 +34,11 @@ public class ShiftsController {
 		R<Boolean> r = new R<Boolean>();
 		if(organizeCode!=null && shiftsName!=null && !"".equals(organizeCode) && !"".equals(shiftsName)) {
 			Shifts entity = new Shifts();
+			entity.setOrganizeCode(organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
-			entity.setOrganizeCode(code.toString());
-			entity.setOrganizeCode(organizeCode);
+			entity.setShiftsCode(code.toString());
 			entity.setShiftsName(shiftsName);
 			r.setCode(R.SUCCESS);
 			r.setData(shiftsService.insert(entity));
@@ -95,7 +96,7 @@ public class ShiftsController {
 	 * @param entity
 	 * @return
 	 */
-	@PostMapping("/list")
+	@GetMapping("/list")
 	public R<List<Shifts>> list(String organizeCode){
 		R<List<Shifts>> r = new R<List<Shifts>>();
 		if(organizeCode!=null && !"".equals(organizeCode)) {

@@ -55,7 +55,8 @@ public class ProductionLineController {
 	@PostMapping("/save")
 	public R<Boolean> save(ProductionLine productionLine){
 		R<Boolean> result = new R<Boolean>();
-		if(productionLine!=null) {
+		if(productionLine!=null && productionLine.getProductionLineName()!=null && productionLine.getOrganizeCode()!=null
+				&& productionLine.getTechnologyWorkshop()!=null) {
 			productionLine.setSerialNumber(productionLineService.maxSerialNumber(productionLine.getOrganizeCode(),
 					productionLine.getTechnologyWorkshop())+1);
 			StringBuilder code = new StringBuilder(productionLine.getOrganizeCode()+productionLine.getTechnologyWorkshop());

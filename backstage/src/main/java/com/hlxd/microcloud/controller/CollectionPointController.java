@@ -30,9 +30,11 @@ public class CollectionPointController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	public R<Boolean> save(CollectionPoint entity){
+	public R<Boolean> save(String collectionPoint, String standardCode, String equipmentCode){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null) {
+		if(collectionPoint!=null && standardCode!=null && equipmentCode!=null && !"".equals(equipmentCode)
+				&& !"".equals(collectionPoint) && !"".equals(standardCode)) {
+			CollectionPoint entity = new CollectionPoint(collectionPoint,standardCode,equipmentCode);
 			r.setCode(R.SUCCESS);
 			r.setData(collectionPointService.insert(entity));
 		}else {
