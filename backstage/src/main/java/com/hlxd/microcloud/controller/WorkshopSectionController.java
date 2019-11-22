@@ -2,6 +2,8 @@ package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,8 +37,7 @@ public class WorkshopSectionController {
 	@PostMapping("/save")
 	public R<Boolean> save(String workshopSectionName, String organizeCode, Integer technologyWorkshop){
 		R<Boolean> r = new R<Boolean>();
-		if(workshopSectionName!=null && !"".equals(workshopSectionName)
-				&& organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(workshopSectionName) && !StringUtils.isEmpty(organizeCode)) {
 			WorkshopSection entity = new WorkshopSection();
 			StringBuilder code = new StringBuilder(organizeCode);
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
@@ -62,7 +63,7 @@ public class WorkshopSectionController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String workshopSectionCode){
 		R<Boolean> r = new R<Boolean>();
-		if(workshopSectionCode!=null && !"".equals(workshopSectionCode)) {
+		if(!StringUtils.isEmpty(workshopSectionCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(workshopSection.deleteById(workshopSectionCode));
 		}else {
@@ -81,8 +82,7 @@ public class WorkshopSectionController {
 	@PostMapping("/update")
 	public R<Boolean> update(WorkshopSection entity){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null && entity.getWorkshopSectionName()!=null && !"".equals(entity.getWorkshopSectionName())
-				&& entity.getWorkshopSectionCode()!=null && !"".equals(entity.getWorkshopSectionCode())) {
+		if(entity!=null && !StringUtils.isEmpty(entity.getWorkshopSectionName()) && !StringUtils.isEmpty(entity.getWorkshopSectionCode())) {
 			r.setCode(R.SUCCESS);
 			r.setData(workshopSection.updateById(entity));
 		}else {
@@ -112,5 +112,6 @@ public class WorkshopSectionController {
 		}
 		return r;
 	}
+	
 }
 

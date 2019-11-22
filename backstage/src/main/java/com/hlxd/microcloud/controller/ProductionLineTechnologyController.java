@@ -2,6 +2,8 @@ package com.hlxd.microcloud.controller;
 
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +35,7 @@ public class ProductionLineTechnologyController {
 	@PostMapping("/save")
 	public R<Boolean> save(ProductionLineTechnology entity){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null && entity.getProductionLineCode()!=null && entity.getSerialNumber()!=null && entity.getTechnologyCode()!=null
-				&& !"".equals(entity.getProductionLineCode()) && !"".equals(entity.getTechnologyCode())) {
+		if(entity!=null && !StringUtils.isEmpty(entity.getProductionLineCode()) && entity.getSerialNumber()!=null && !StringUtils.isEmpty(entity.getTechnologyCode())) {
 			entity.setId(UUID.randomUUID().toString());
 			r.setCode(R.SUCCESS);
 			r.setData(productionLineTechnologyService.insert(entity));
@@ -55,7 +56,7 @@ public class ProductionLineTechnologyController {
 	@PostMapping("/update")
 	public R<Boolean> update(String id, Integer serialNumber){
 		R<Boolean> r = new R<Boolean>();
-		if(id!=null && !"".equals(id) && serialNumber!=null) {
+		if(!StringUtils.isEmpty(id) && serialNumber!=null) {
 			ProductionLineTechnology entity = new ProductionLineTechnology();
 			entity.setId(id);
 			entity.setSerialNumber(serialNumber);
@@ -77,7 +78,7 @@ public class ProductionLineTechnologyController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String id){
 		R<Boolean> r = new R<Boolean>();
-		if(id!=null && !"".equals(id)) {
+		if(!StringUtils.isEmpty(id)) {
 			r.setCode(R.SUCCESS);
 			r.setData(productionLineTechnologyService.deleteById(id));
 		}else {
@@ -96,7 +97,7 @@ public class ProductionLineTechnologyController {
 	@GetMapping("/list")
 	public R<List<ProductionLineVo>> list(String productionLineCode){
 		R<List<ProductionLineVo>> r = new R<List<ProductionLineVo>>();
-		if(productionLineCode!=null && !"".equals(productionLineCode)) {
+		if(!StringUtils.isEmpty(productionLineCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(productionLineTechnologyService.productionLine(productionLineCode));
 		}else {

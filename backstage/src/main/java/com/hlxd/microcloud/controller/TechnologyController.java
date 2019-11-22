@@ -2,6 +2,7 @@ package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,7 @@ public class TechnologyController {
 	@PostMapping("/save")
 	public R<Boolean> save(Technology technology){
 		R<Boolean> r = new R<>();
-		if(technology!=null && technology.getWorkshopSectionCode()!=null && technology.getTechnologyWorkshop()!=null) {
+		if(technology!=null && !StringUtils.isEmpty(technology.getWorkshopSectionCode()) && technology.getTechnologyWorkshop()!=null) {
 			StringBuilder code = new StringBuilder(technology.getOrganizeCode());
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
 			code.append(((int)(Math.random()*900 + 100))).toString();
@@ -58,7 +59,7 @@ public class TechnologyController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String technologyCode){
 		R<Boolean> r = new R<>();
-		if(technologyCode!=null && !"".equals(technologyCode)) {
+		if(!StringUtils.isEmpty(technologyCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(technologyService.deleteById(technologyCode));
 		}else {
@@ -78,7 +79,7 @@ public class TechnologyController {
 	@PostMapping("/update")
 	public R<Boolean> update(String technologyCode, String technologyName){
 		R<Boolean> r = new R<>();
-		if(technologyCode!=null && technologyName!=null && !"".equals(technologyCode) && !"".equals(technologyName)) {
+		if(!StringUtils.isEmpty(technologyCode) && !StringUtils.isEmpty(technologyName)) {
 			Technology entity = new Technology();
 			entity.setTechnologyCode(technologyCode);
 			entity.setTechnologyName(technologyName);
@@ -103,7 +104,7 @@ public class TechnologyController {
 	@GetMapping("/list")
 	public R<Page<Technology>> list(Integer current, Integer size, Integer technologyWorkshop, String organizeCode){
 		R<Page<Technology>> r = new R<Page<Technology>>();
-		if(current!=null && size!=null && technologyWorkshop!=null && organizeCode!=null && !"".equals(organizeCode)) {
+		if(current!=null && size!=null && technologyWorkshop!=null && !StringUtils.isEmpty(organizeCode)) {
 			r.setCode(200);
 			r.setData(technologyService.selectPage(new Page<Technology>(current, size), new EntityWrapper<Technology>().eq("technology_workshop", technologyWorkshop)
 					.and().eq("organize_code", organizeCode).or().isNull("organize_code")));

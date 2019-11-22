@@ -2,6 +2,8 @@ package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +34,7 @@ public class ShiftsController {
 	@PostMapping("/save")
 	public R<Boolean> save(String organizeCode, String shiftsName){
 		R<Boolean> r = new R<Boolean>();
-		if(organizeCode!=null && shiftsName!=null && !"".equals(organizeCode) && !"".equals(shiftsName)) {
+		if(!StringUtils.isEmpty(organizeCode) && !StringUtils.isEmpty(shiftsName)) {
 			Shifts entity = new Shifts();
 			entity.setOrganizeCode(organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
@@ -58,7 +60,7 @@ public class ShiftsController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String shiftsCode){
 		R<Boolean> r = new R<Boolean>();
-		if(shiftsCode!=null) {
+		if(!StringUtils.isEmpty(shiftsCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(shiftsService.deleteById(shiftsCode));
 		}else {
@@ -77,7 +79,7 @@ public class ShiftsController {
 	@PostMapping("/update")
 	public R<Boolean> update(String shiftsCode, String shiftsName){
 		R<Boolean> r = new R<Boolean>();
-		if(shiftsCode!=null && shiftsName!=null && !"".equals(shiftsCode) && !"".equals(shiftsName)) {
+		if(!StringUtils.isEmpty(shiftsCode) && !StringUtils.isEmpty(shiftsName)) {
 			Shifts entity = new Shifts();
 			entity.setShiftsCode(shiftsCode);
 			entity.setShiftsName(shiftsName);
@@ -99,7 +101,7 @@ public class ShiftsController {
 	@GetMapping("/list")
 	public R<List<Shifts>> list(String organizeCode){
 		R<List<Shifts>> r = new R<List<Shifts>>();
-		if(organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(organizeCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(shiftsService.selectList(new EntityWrapper<Shifts>().eq("organize_code", organizeCode)));
 		}else {

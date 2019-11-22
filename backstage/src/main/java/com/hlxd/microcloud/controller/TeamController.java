@@ -2,6 +2,8 @@ package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +35,7 @@ public class TeamController {
 	@PostMapping("/save")
 	public R<Boolean> save(String organizeCode, String teamName){
 		R<Boolean> r = new R<Boolean>();
-		if(organizeCode!=null && teamName!=null && !"".equals(teamName) && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(teamName) && !StringUtils.isEmpty(organizeCode)) {
 			Team entity = new Team();
 			entity.setOrganizeCode(organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
@@ -59,7 +61,7 @@ public class TeamController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String teamCode){
 		R<Boolean> r = new R<Boolean>();
-		if(teamCode!=null) {
+		if(!StringUtils.isEmpty(teamCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(teamService.deleteById(teamCode));
 		}else {
@@ -78,7 +80,7 @@ public class TeamController {
 	@PostMapping("/update")
 	public R<Boolean> update(String teamCode, String teamName){
 		R<Boolean> r = new R<Boolean>();
-		if(teamCode!=null && teamName!=null && !"".equals(teamCode) && !"".equals(teamName)) {
+		if(!StringUtils.isEmpty(teamCode) && !StringUtils.isEmpty(teamName)) {
 			Team entity = new Team();
 			entity.setTeamCode(teamCode);
 			entity.setTeamName(teamName);
@@ -100,7 +102,7 @@ public class TeamController {
 	@GetMapping("/list")
 	public R<List<Team>> list(String organizeCode){
 		R<List<Team>> r = new R<List<Team>>();
-		if(organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(organizeCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(teamService.selectList(new EntityWrapper<Team>().eq("organize_code", organizeCode)));
 		}else {

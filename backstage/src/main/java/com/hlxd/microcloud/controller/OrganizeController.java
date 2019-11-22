@@ -1,5 +1,6 @@
 package com.hlxd.microcloud.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ public class OrganizeController {
 	@PostMapping("/update")
 	public R<Boolean> update(String organizeCode, String organizeName,String superiorOrganizeCode){
 		R<Boolean> result = new R<>();
-		if(organizeCode!=null && organizeName!=null && !"".equals(organizeCode) && !"".equals(organizeName)) {
+		if(!StringUtils.isEmpty(organizeCode) && !StringUtils.isEmpty(organizeName)) {
 			Organize entity = new Organize();
 			entity.setOrganizeCode(organizeCode);
 			entity.setOrganizeName(organizeName);
@@ -155,7 +156,7 @@ public class OrganizeController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String organizeCode){
 		R<Boolean> result = new R<>();
-		if(organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(organizeCode)) {
 			int count = organizeService.selectCount(new EntityWrapper<Organize>().eq("superior_organize_code", organizeCode));
 			if(count != 0) {
 				result.setCode(R.NO_PERMISSION);

@@ -1,6 +1,8 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +34,7 @@ public class CollectionPointController {
 	@PostMapping("/save")
 	public R<Boolean> save(String collectionPoint, String standardCode, String equipmentCode){
 		R<Boolean> r = new R<Boolean>();
-		if(collectionPoint!=null && standardCode!=null && equipmentCode!=null && !"".equals(equipmentCode)
-				&& !"".equals(collectionPoint) && !"".equals(standardCode)) {
+		if(!StringUtils.isEmpty(collectionPoint) && !StringUtils.isEmpty(standardCode)&& !StringUtils.isEmpty(equipmentCode)) {
 			CollectionPoint entity = new CollectionPoint(collectionPoint,standardCode,equipmentCode);
 			r.setCode(R.SUCCESS);
 			r.setData(collectionPointService.insert(entity));
@@ -53,7 +54,7 @@ public class CollectionPointController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String collectionPoint){
 		R<Boolean> r = new R<Boolean>();
-		if(collectionPoint!=null && !"".equals(collectionPoint)) {
+		if(!StringUtils.isEmpty(collectionPoint)) {
 			r.setCode(R.SUCCESS);
 			r.setData(collectionPointService.deleteById(collectionPoint));
 		}else {
@@ -72,7 +73,7 @@ public class CollectionPointController {
 	@GetMapping("/list")
 	public R<List<CollectionPoint>> list(String equipmentCode){
 		R<List<CollectionPoint>> r = new R<List<CollectionPoint>>();
-		if(equipmentCode!=null && !"".equals(equipmentCode)) {
+		if(!StringUtils.isEmpty(equipmentCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(collectionPointService.selectList(new EntityWrapper<CollectionPoint>().eq("equipment_code", equipmentCode)));
 		}else {

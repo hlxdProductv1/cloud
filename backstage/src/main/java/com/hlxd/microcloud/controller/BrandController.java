@@ -1,5 +1,6 @@
 package com.hlxd.microcloud.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ public class BrandController {
 	@PostMapping("/save")
 	public R<Boolean> save(String brandCode, String brandName, String organizeCode){
 		R<Boolean> r = new R<Boolean>();
-		if(brandCode!=null && !"".equals(brandCode) && brandName!=null && !"".equals(brandName) && organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(brandCode) && !StringUtils.isEmpty(brandName) && !StringUtils.isEmpty(organizeCode)) {
 			Brand entity = new Brand(brandCode,brandName,organizeCode);
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.insert(entity));
@@ -53,7 +54,7 @@ public class BrandController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String brandCode){
 		R<Boolean> r = new R<Boolean>();
-		if(brandCode!=null) {
+		if(!StringUtils.isEmpty(brandCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.deleteById(brandCode));
 		}else {
@@ -72,7 +73,7 @@ public class BrandController {
 	@PostMapping("/update")
 	public R<Boolean> update(String brandCode, String brandName){
 		R<Boolean> r = new R<Boolean>();
-		if(brandCode!=null && brandName!=null && !"".equals(brandCode) && !"".equals(brandName)) {
+		if(!StringUtils.isEmpty(brandCode) && !StringUtils.isEmpty(brandName)) {
 			Brand entity = new Brand();
 			entity.setBrandCode(brandCode);
 			entity.setBrandName(brandName);
@@ -94,7 +95,7 @@ public class BrandController {
 	@GetMapping("/get")
 	public R<Brand> get(String brandCode){
 		R<Brand> r = new R<Brand>();
-		if(brandCode!=null && !"".equals(brandCode)) {
+		if(!StringUtils.isEmpty(brandCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.selectById(brandCode));
 		}else {
@@ -112,7 +113,7 @@ public class BrandController {
 	@GetMapping("/list")
 	public R<Page<Brand>> list(Integer current, Integer size, String organizeCode){
 		R<Page<Brand>> r = new R<Page<Brand>>();
-		if(current!=null && size!=null && organizeCode!=null && !"".equals(organizeCode)) {
+		if(current!=null && size!=null && !StringUtils.isEmpty(organizeCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.selectPage(new Page<Brand>(current, size),new EntityWrapper<Brand>().eq("organize_code", organizeCode)));
 		}else {
@@ -121,5 +122,6 @@ public class BrandController {
 		}
 		return r;
 	}
+
 }
 

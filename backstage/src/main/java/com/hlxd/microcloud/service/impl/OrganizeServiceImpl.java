@@ -6,6 +6,8 @@ import com.hlxd.microcloud.entity.vo.OrganizeTreeVo;
 import com.hlxd.microcloud.mapper.OrganizeMapper;
 import com.hlxd.microcloud.service.OrganizeService;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class OrganizeServiceImpl extends ServiceImpl<OrganizeMapper, Organize> i
 	@Override
 	public StringBuilder uuid(String superiorOrganizeCode) {
 		Integer organizeType = 1;
-		if(superiorOrganizeCode!=null && !"".equals(superiorOrganizeCode)) {
+		if(!StringUtils.isEmpty(superiorOrganizeCode)) {
 			organizeType = organizeMapper.superiororganizeType(superiorOrganizeCode)+1;
 		}
 		Integer id = organizeMapper.vacancyOrganizeCode(organizeType, organizeType+1, superiorOrganizeCode);

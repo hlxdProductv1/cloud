@@ -1,6 +1,8 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +35,7 @@ public class EquipmentController {
 	@PostMapping("/save")
 	public R<Boolean> save(String equipmentName, String superiorEquipmentCode, Integer equipmentType, String organizeCode){
 		R<Boolean> r = new R<Boolean>();
-		if(equipmentName!=null && equipmentType!=null && organizeCode!=null
-				&& !"".equals(equipmentName) && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(equipmentName) && equipmentType!=null && !StringUtils.isEmpty(organizeCode)) {
 			Equipment entity = new Equipment(equipmentName, superiorEquipmentCode, equipmentType, organizeCode);
 			StringBuilder code = new StringBuilder(entity.getOrganizeCode());
 			code.append((Calendar.getInstance().getTimeInMillis()+"").substring(9));
@@ -58,7 +59,7 @@ public class EquipmentController {
 	@PostMapping("/update")
 	public R<Boolean> update(String equipmentCode, String equipmentName){
 		R<Boolean> r = new R<Boolean>();
-		if(equipmentName!=null && !"".equals(equipmentName) && equipmentCode!=null && !"".equals(equipmentCode)) {
+		if(!StringUtils.isEmpty(equipmentName) && !StringUtils.isEmpty(equipmentCode)) {
 			Equipment entity = new Equipment(equipmentCode, equipmentName);
 			r.setCode(R.SUCCESS);
 			r.setData(equipmentService.updateById(entity));
@@ -78,7 +79,7 @@ public class EquipmentController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String equipmentCode){
 		R<Boolean> r = new R<Boolean>();
-		if(equipmentCode!=null && !"".equals(equipmentCode)) {
+		if(!StringUtils.isEmpty(equipmentCode)) {
 			int count = equipmentService.selectCount(new EntityWrapper<Equipment>().eq("superior_equipment_code", equipmentCode));
 			if(count==0) {
 				r.setCode(R.SUCCESS);
@@ -105,7 +106,7 @@ public class EquipmentController {
 	@GetMapping("/get")
 	public R<Equipment> get(String equipmentCode){
 		R<Equipment> r = new R<Equipment>();
-		if(equipmentCode!=null && !"".equals(equipmentCode)) {
+		if(!StringUtils.isEmpty(equipmentCode)) {
 			r.setCode(R.SUCCESS);
 			Equipment entity = equipmentService.selectById(equipmentCode);
 			r.setData(entity);
@@ -133,10 +134,10 @@ public class EquipmentController {
 		R<Page<Equipment>> r = new R<>();
 		if(current!=null && size!=null) {
 			r.setCode(R.SUCCESS);
-			if(equipmentType!=null && organizeCode!=null && !"".equals(organizeCode)) {
+			if(equipmentType!=null && !StringUtils.isEmpty(organizeCode)) {
 				r.setData(equipmentService.selectPage(new Page<Equipment>(current, size),
 						new EntityWrapper<Equipment>().eq("organize_code", organizeCode).eq("equipment_type", equipmentType)));
-			}else if(superiorEquipmentCode!=null && !"".equals(superiorEquipmentCode)){
+			}else if(!StringUtils.isEmpty(superiorEquipmentCode)){
 				r.setData(equipmentService.selectPage(new Page<Equipment>(current, size),
 						new EntityWrapper<Equipment>().eq("superior_equipment_code", superiorEquipmentCode)));
 			}
