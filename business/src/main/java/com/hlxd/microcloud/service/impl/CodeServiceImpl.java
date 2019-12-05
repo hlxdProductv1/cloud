@@ -1,5 +1,6 @@
 package com.hlxd.microcloud.service.impl;
 
+import com.hlxd.microcloud.dao.CodeMapper;
 import com.hlxd.microcloud.entity.ProCode;
 import com.hlxd.microcloud.service.ICodeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ import java.util.Map;
 public class CodeServiceImpl implements ICodeService {
 
     @Autowired
-    private ICodeService iCodeService;
+    private CodeMapper codeMapper;
     @Override
     public ProCode getCodeDetails(Map map) {
-        return iCodeService.getCodeDetails(map);
+        return codeMapper.getCodeDetails(map);
     }
 }

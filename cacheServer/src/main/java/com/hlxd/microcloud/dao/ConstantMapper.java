@@ -1,10 +1,9 @@
-package com.hlxd.microcloud.mapper;
+package com.hlxd.microcloud.dao;
 
 import com.hlxd.microcloud.entity.Constant;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * CREATED BY IDEA

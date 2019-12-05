@@ -1,13 +1,12 @@
 package com.hlxd.microcloud.service.impl;
 
 import com.hlxd.microcloud.entity.Constant;
-import com.hlxd.microcloud.mapper.ConstantMapper;
+import com.hlxd.microcloud.dao.ConstantMapper;
 import com.hlxd.microcloud.service.IConstantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * CREATED BY IDEA
