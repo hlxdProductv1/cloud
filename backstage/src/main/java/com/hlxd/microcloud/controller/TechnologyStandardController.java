@@ -1,5 +1,6 @@
 package com.hlxd.microcloud.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,12 +33,16 @@ public class TechnologyStandardController {
 	@GetMapping("/get")
 	public R<TechnologyStandard> get(String standardCode){
 		R<TechnologyStandard> r = new R<>();
-		if(standardCode!=null && !"".equals(standardCode)) {
+		if(!StringUtils.isEmpty(standardCode)) {
 			r.setCode(R.SUCCESS);
-			r.setData(technologyStandardService.selectById(standardCode));
+			TechnologyStandard entity = technologyStandardService.selectById(standardCode);
+			r.setData(entity);
+			if(entity==null) {
+				r.setMsg(R.NULL_QUERY);
+			}
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -52,12 +57,12 @@ public class TechnologyStandardController {
 	@GetMapping("/list")
 	public R<Page<TechnologyStandardVo>> list(Integer current, Integer size, String technologyCode){
 		R<Page<TechnologyStandardVo>> r = new R<>();
-		if(current!=null && size!=null) {
+		if(current!=null && size!=null && !StringUtils.isEmpty(technologyCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(technologyStandardService.list(new Page<TechnologyStandardVo>(current, size), technologyCode));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -80,7 +85,7 @@ public class TechnologyStandardController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -93,13 +98,13 @@ public class TechnologyStandardController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String standardCode){
 		R<Boolean> r = new R<>();
-		if(standardCode!=null && !"".equals(standardCode)) {
+		if(!StringUtils.isEmpty(standardCode)) {
 			r.setCode(R.SUCCESS);
 			r.setData(technologyStandardService.deleteById(standardCode));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -118,7 +123,7 @@ public class TechnologyStandardController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}

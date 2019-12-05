@@ -18,6 +18,22 @@ public class R<T> implements Serializable {
      * 系统内部异常
      */
     public static final int SYSTEM_EXCEPTION = 500;
+    /**
+     * 不允许操作
+     */
+    public static final String NO_PERMISSION_MSG = "Operation not allowed.";
+    /**
+     * 必选参数为空
+     */
+    public static final String NULL_PARAMETER_MSG = "The parameter is empty.";
+    /**
+     * 系统内部异常
+     */
+    public static final String SYSTEM_EXCEPTION_MSG = "System internal exception.";
+    /**
+     * 查询数据为空
+     */
+    public static final String NULL_QUERY = "Query data does not exist.";
     private static final long serialVersionUID = 1L;
 
     private String msg = "success";

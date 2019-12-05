@@ -56,5 +56,23 @@ public class Equipment extends Model<Equipment> {
     protected Serializable pkVal() {
         return this.equipmentCode;
     }
+    
+	public Equipment() {}
 
+	public Equipment(String equipmentCode, String equipmentName) {
+		super(); 
+		this.equipmentCode = equipmentCode;
+		this.equipmentName = equipmentName;
+	}
+	
+	public Equipment(String equipmentName, String superiorEquipmentCode, Integer equipmentType,
+			String organizeCode) {
+		super(); 
+		this.equipmentName = equipmentName;
+		this.superiorEquipmentCode = superiorEquipmentCode;
+		this.equipmentType = equipmentType;
+		this.organizeCode = organizeCode;
+	}
+
+    
 }

@@ -21,7 +21,10 @@
 		    </if>
 		</where>
     </select>
-    
+    <!-- 上级类型 -->
+    <select id="superiororganizeType" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select organize_type from t_pro_organize where organize_code = #{superiorOrganizeCode}
+    </select>
     <!-- 查询id空缺位 -->
     <select id="vacancyOrganizeCode" resultType="java.lang.Integer">
     	select 

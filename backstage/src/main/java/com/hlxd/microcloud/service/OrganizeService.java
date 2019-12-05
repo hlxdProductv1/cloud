@@ -27,5 +27,11 @@ public interface OrganizeService extends IService<Organize> {
 	 * @param id 空缺id
 	 * @return
 	 */
-	StringBuilder uuid(Integer organizeType, String superiorOrganizeCode);
+	StringBuilder uuid(String superiorOrganizeCode);
+	/***
+	 * -上级类型
+	 * @param superiorOrganizeCode
+	 * @return
+	 */
+    Integer superiororganizeType(String superiorOrganizeCode);
 }

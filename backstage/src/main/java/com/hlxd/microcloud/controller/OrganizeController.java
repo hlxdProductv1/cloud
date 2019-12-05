@@ -1,5 +1,8 @@
 package com.hlxd.microcloud.controller;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class OrganizeController {
 	@Autowired
 	private OrganizeService organizeService;
 
+	private static Logger logger = LoggerFactory.getLogger(OrganizeController.class);
+	
 	/***
 	 * -批量添加组织结构
 	 * @param entityList
@@ -41,13 +46,13 @@ public class OrganizeController {
 		if (entityList != null && entityList.size()>0) {
 			boolean bl = true;
 			for(Organize o : entityList) {
-				o.setOrganizeCode(organizeService.uuid(o.getOrganizeType(), o.getSuperiorOrganizeCode()).toString());
+				o.setOrganizeCode(organizeService.uuid(o.getSuperiorOrganizeCode()).toString());
 				bl = organizeService.insert(o);
 				if(bl == false) {
 	    			try {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					}catch (Exception e) {
-						System.err.println("RollbackOnly");
+						logger.debug(e.getMessage());
 					}
 				}
 			}
@@ -56,7 +61,7 @@ public class OrganizeController {
 		} else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -70,13 +75,13 @@ public class OrganizeController {
 	public R<Boolean> save(Organize organize) {
 		R<Boolean> r = new R<Boolean>();
 		if (organize != null) {
-			organize.setOrganizeCode(organizeService.uuid(organize.getOrganizeType(), organize.getSuperiorOrganizeCode()).toString());
+			organize.setOrganizeCode(organizeService.uuid(organize.getSuperiorOrganizeCode()).toString());
 			r.setCode(R.SUCCESS);
 			r.setData(organizeService.insert(organize));
 		} else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -89,7 +94,7 @@ public class OrganizeController {
 	@GetMapping("/list")
 	public R<List<OrganizeTreeVo>> list(String organizeCode){
 		R<List<OrganizeTreeVo>> r = new R<>();
-		List<OrganizeTreeVo> tree = organizeService.organizeTree(1, organizeCode, null);
+		List<OrganizeTreeVo> tree = organizeService.organizeTree(0, organizeCode, null);
 		digui(tree);
 		r.setCode(R.SUCCESS);
 		r.setData(tree);
@@ -120,18 +125,25 @@ public class OrganizeController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public R<Boolean> update(String organizeCode, String organizeName){
+	public R<Boolean> update(String organizeCode, String organizeName,String superiorOrganizeCode){
 		R<Boolean> result = new R<>();
-		if(organizeCode!=null && organizeName!=null && !"".equals(organizeCode) && !"".equals(organizeName)) {
+		if(!StringUtils.isEmpty(organizeCode) && !StringUtils.isEmpty(organizeName)) {
 			Organize entity = new Organize();
 			entity.setOrganizeCode(organizeCode);
 			entity.setOrganizeName(organizeName);
 			result.setCode(R.SUCCESS);
-			result.setData(organizeService.updateById(entity));
+			Integer count = organizeService.selectCount(new EntityWrapper<Organize>().eq("organize_code", organizeCode));
+			if(count!=null && count!=0) {
+				result.setData(organizeService.updateById(entity));
+			}else {
+				entity.setSuperiorOrganizeCode(superiorOrganizeCode);
+				entity.setOrganizeType(organizeService.superiororganizeType(superiorOrganizeCode)+1);
+				result.setData(organizeService.insert(entity));
+			}
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -144,12 +156,12 @@ public class OrganizeController {
 	@PostMapping("/remove")
 	public R<Boolean> remove(String organizeCode){
 		R<Boolean> result = new R<>();
-		if(organizeCode!=null && !"".equals(organizeCode)) {
+		if(!StringUtils.isEmpty(organizeCode)) {
 			int count = organizeService.selectCount(new EntityWrapper<Organize>().eq("superior_organize_code", organizeCode));
 			if(count != 0) {
 				result.setCode(R.NO_PERMISSION);
 				result.setData(false);
-				result.setMsg("prohibition operation");
+				result.setMsg(R.NO_PERMISSION_MSG);
 			}else {
 				result.setCode(R.SUCCESS);
 				result.setData(organizeService.deleteById(organizeCode));
@@ -157,7 +169,7 @@ public class OrganizeController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -169,8 +181,8 @@ public class OrganizeController {
 	 * @return
 	 */
 	@GetMapping("/uuid")
-	public StringBuilder uuid(Integer organizeType, String superiorOrganizeCode) {
-		return organizeService.uuid(organizeType, superiorOrganizeCode);
+	public StringBuilder uuid(String superiorOrganizeCode) {
+		return organizeService.uuid(superiorOrganizeCode);
 	}
 }
 

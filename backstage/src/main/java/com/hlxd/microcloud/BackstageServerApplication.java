@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //线程池注解
 @EnableAsync
 public class BackstageServerApplication {
+	
     public static void main(String[] args) throws Exception{
         SpringApplication.run(BackstageServerApplication.class, args);
     }

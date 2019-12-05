@@ -1,6 +1,8 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +39,12 @@ public class ProductionLineController {
 	@GetMapping("/list")
 	public R<List<ProductionLine>> list(String organizeCode, Integer technologyWorkshop){
 		R<List<ProductionLine>> result = new R<List<ProductionLine>>();
-		if(organizeCode!=null && !"".equals(organizeCode) && technologyWorkshop!=null) {
+		if(!StringUtils.isEmpty(organizeCode) && technologyWorkshop!=null) {
 			result.setCode(R.SUCCESS);
 			result.setData(productionLineService.selectList(new EntityWrapper<ProductionLine>().eq("organize_code", organizeCode).eq("technology_workshop", technologyWorkshop).orderBy("serial_number")));
 		}else {
 			result.setCode(R.NULL_PARAMETER);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -55,7 +57,8 @@ public class ProductionLineController {
 	@PostMapping("/save")
 	public R<Boolean> save(ProductionLine productionLine){
 		R<Boolean> result = new R<Boolean>();
-		if(productionLine!=null) {
+		if(productionLine!=null && !StringUtils.isEmpty(productionLine.getProductionLineName()) && !StringUtils.isEmpty(productionLine.getOrganizeCode())
+				&& productionLine.getTechnologyWorkshop()!=null) {
 			productionLine.setSerialNumber(productionLineService.maxSerialNumber(productionLine.getOrganizeCode(),
 					productionLine.getTechnologyWorkshop())+1);
 			StringBuilder code = new StringBuilder(productionLine.getOrganizeCode()+productionLine.getTechnologyWorkshop());
@@ -71,7 +74,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -84,7 +87,7 @@ public class ProductionLineController {
 	@PostMapping("/update")
 	public R<Boolean> update(String productionLineCode, String productionLineName){
 		R<Boolean> result = new R<Boolean>();
-		if(productionLineCode!=null && productionLineName!=null) {
+		if(!StringUtils.isEmpty(productionLineCode) && !StringUtils.isEmpty(productionLineName)) {
 			ProductionLine productionLine = new ProductionLine();
 			productionLine.setProductionLineCode(productionLineCode);
 			productionLine.setProductionLineName(productionLineName);
@@ -93,7 +96,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}
@@ -107,7 +110,7 @@ public class ProductionLineController {
 	@Transactional
 	public R<Boolean> remove(String productionLineCode){
 		R<Boolean> result = new R<Boolean>();
-		if(productionLineCode!=null && !"".equals(productionLineCode)) {
+		if(!StringUtils.isEmpty(productionLineCode)) {
 			boolean bl = productionLineService.deleteById(productionLineCode);
 			if(bl == true) {
 				//删除产线配置工艺
@@ -121,7 +124,7 @@ public class ProductionLineController {
 		}else {
 			result.setCode(R.NULL_PARAMETER);
 			result.setData(false);
-			result.setMsg("The parameter is empty.");
+			result.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return result;
 	}

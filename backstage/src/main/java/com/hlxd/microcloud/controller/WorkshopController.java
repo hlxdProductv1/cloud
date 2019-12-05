@@ -1,6 +1,8 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,13 +45,13 @@ public class WorkshopController {
 	@PostMapping("/save")
 	public R<Boolean> save(String workshopName){
 		R<Boolean> r = new R<>();
-		if(workshopName!=null && !"".equals(workshopName)) {
+		if(!StringUtils.isEmpty(workshopName)) {
 			r.setCode(R.SUCCESS);
 			r.setData(workshopService.insert(new Workshop(workshopName)));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -62,14 +64,13 @@ public class WorkshopController {
 	@PostMapping("/update")
 	public R<Boolean> update(Workshop workshop){
 		R<Boolean> r = new R<>();
-		if(workshop!=null && workshop.getId()!=null && workshop.getWorkshopName()!=null
-				&& !"".equals(workshop.getWorkshopName())) {
+		if(workshop!=null && workshop.getId()!=null && !StringUtils.isEmpty(workshop.getWorkshopName())) {
 			r.setCode(R.SUCCESS);
 			r.setData(workshopService.updateById(workshop));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
@@ -88,7 +89,7 @@ public class WorkshopController {
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
-			r.setMsg("The parameter is empty.");
+			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
 		return r;
 	}
