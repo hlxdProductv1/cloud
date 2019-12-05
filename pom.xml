@@ -265,6 +265,8 @@
         <module>zuul</module>
         <module>pojo</module>
         <module>util</module>
-    <module>backstage</module>
-  </modules>
+        <module>backstage</module>
+        <module>business</module>
+        <module>cacheServer</module>
+    </modules>
 </project>

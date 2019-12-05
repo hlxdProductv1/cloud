@@ -35,23 +35,6 @@ public class UserInfo implements Serializable {
     private String[] menus;
 
 
-    private String id;
-
-    private String iuid;
-
-
-    private String name;
-
-    private String roleName;
-
-
-    private String authId;
-
-
-    private String deptCode;
-
-
-    private String flag;
 
 
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.FeedingMapper">
+
+
+    <resultMap type="com.hlxd.microcloud.entity.SysUser" id="BaseMap">
+        <result column="id" property="id"/>
+        <result column="throwingNumber" property="throwingNumber"/>
+        <result column="startFeedingDate" property="startFeedingDate"/>
+        <result column="endFeedingDate" property="endFeedingDate"/>
+        <result column="equipmentCode" property="equipmentCode"/>
+        <result column="feedingEquipmentCode" property="feedingEquipmentCode"/>
+        <result column="remark" property="remark"/>
+        <result column="organizeCode" property="organizeCode"/>
+    </resultMap>
+
+    <select id="getFeedingRecord"  resultMap="BaseMap" parameterType="java.util.HashMap">
+        select
+        id,
+        throwing_number as throwingNumber,
+        start_feeding_date as startFeedingDate,
+        end_feeding_date as endFeedingDate,
+        equipment_code as equipmentCode,
+        feeding_equipment_code as feedingEquipmentCode,
+        remark,
+        organize_code as organizeCode
+        from t_pro_feeding_record
+        where
+         feeding_equipment_code=#{machineCode}and
+         (#{startTime} between start_feeding_date and end_feeding_date
+        or #{endTime} between start_feeding_date and end_feeding_date)
+    </select>
+
+
+
+
+</mapper>

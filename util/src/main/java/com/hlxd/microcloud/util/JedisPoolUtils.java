@@ -60,7 +60,10 @@ public class JedisPoolUtils {
             jedis.lrem(key,0,i);
         }
         jedis.close();
-
+    }
+    public static void delAllValue(){
+        Jedis jedis = getJedis();
+        jedis.flushAll();
     }
 
 }

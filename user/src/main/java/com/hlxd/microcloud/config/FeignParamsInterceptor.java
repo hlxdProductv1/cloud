@@ -28,12 +28,6 @@ public class FeignParamsInterceptor implements RequestInterceptor {
     public void apply(RequestTemplate requestTemplate) {
         String url = requestTemplate.url();
         if(url.equals(authUrl)){
-            //获取请求体
-            byte[] body = requestTemplate.body();
-            JSONObject params;
-            /*params = JSON.parseObject(new String(body, requestTemplate.charset() == null ? "utf-8": requestTemplate.charset().name()));
-            //设置请求体
-            requestTemplate.body(params.toJSONString());*/
             requestTemplate.header("Authorization", "Basic b3V5YWFhOm91eWFhYQ==");
         }
 

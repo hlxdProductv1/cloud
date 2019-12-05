@@ -20,7 +20,6 @@ import java.util.Map;
 @FeignClient(name = "auth-server",fallback = RemoteTokenServiceImpl.class)
 public interface AuthService {
 
-
     @RequestMapping(value = "/oauth/token",method = RequestMethod.POST)
     public Map getToken(@RequestParam Map<String, String> parameters);
 

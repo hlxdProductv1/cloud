@@ -4,16 +4,23 @@
 <mapper namespace="com.hlxd.microcloud.dao.UserMapper">
 
 
-    <resultMap type="com.hlxd.microcloud.entity.User" id="userMap">
+    <resultMap type="com.hlxd.microcloud.entity.SysUser" id="userMap">
         <result column="id" property="id"/>
         <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="organize_code" property="organizeCode"/>
+        <result column="organize_name" property="organizeName"/>
+        <result column="status" property="status"/>
+        <result column="grant_api" property="grantApi"/>
     </resultMap>
 
-    <select id="getUserInfo" parameterType="com.hlxd.microcloud.entity.User" resultType="com.hlxd.microcloud.entity.User">
-        select id,username,password
-        from t_user
-        where username = #{name}
-        and password = #{passWord}
+    <select id="getUserInfo"  resultMap="userMap">
+        select tpu.id,tpu.username,tpu.password,tpu.organize_code,tpo.organize_name,tpu.status,tpu.grant_api
+        from t_pro_user tpu
+        left join t_pro_organize tpo
+        on tpu.organize_code = tpo.organize_code
+        where username = #{username}
+        and password = #{password}
     </select>
 
 

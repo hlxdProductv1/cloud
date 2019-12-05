@@ -55,7 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         SysUser sysUser = user.getSysUser();
 
 
-        boolean enabled = StringUtils.equals(sysUser.getDelFlag(),"0");
+        //boolean enabled = StringUtils.equals(sysUser.getDelFlag(),"0");
 
         /*
          * 构造security用户

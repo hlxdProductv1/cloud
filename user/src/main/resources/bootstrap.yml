@@ -3,9 +3,9 @@ spring:
     name: user-server
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource 
-    url: jdbc:mysql://10.130.0.216:3306/hyhhdiy_personal?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://134.175.90.151:3306/product_v1?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: root
+    password: Hlxd@123456
     driver-class-name: com.mysql.jdbc.Driver
     configuration:
       MapUnderscoreToCamelCase: true
@@ -14,17 +14,7 @@ spring:
       initial-size: 5                              
       max-total: 5
       max-wait-millis: 200
-  mvc:
-    static-path-pattern: /static/**
-#  rabbitmq:
-#    host: localhost
-#    username: guest
-#    password: guest
-#    port: 5672
-#    virtual-host: /
-#    listener:
-#      simple:
-#        acknowledge-mode: manual
+
   redis:
     host: 127.0.0.1
     #host: 192.168.0.138
@@ -87,9 +77,3 @@ security:
 upload:
   file:
     size: 406800KB
-
-ip: http://10.130.0.216
-
-channel: user
-queues: auth
-routeKey: passwords

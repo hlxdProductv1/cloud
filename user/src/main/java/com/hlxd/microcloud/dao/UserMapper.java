@@ -2,7 +2,7 @@ package com.hlxd.microcloud.dao;
 
 
 
-import com.hlxd.microcloud.entity.User;
+import com.hlxd.microcloud.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -14,6 +14,6 @@ import org.apache.ibatis.annotations.Param;
  * @since 2019-03-06
  */
 public interface UserMapper {
-    User getUserInfo(@Param("name")String name, @Param("passWord")String password);
+    SysUser getUserInfo(@Param("username")String name, @Param("password")String password);
 
 }

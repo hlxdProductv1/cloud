@@ -15,6 +15,6 @@ public interface UserService {
 
 
     UserInfo getUserInfo(String name, String password);
-    User getUser(String name, String password);
+    SysUser getUser(String name, String password);
 
 }
