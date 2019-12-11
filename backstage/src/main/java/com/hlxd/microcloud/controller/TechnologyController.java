@@ -1,7 +1,7 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
-
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.entity.Technology;
 import com.hlxd.microcloud.service.TechnologyService;
@@ -102,12 +102,40 @@ public class TechnologyController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	public R<Page<Technology>> list(Integer current, Integer size, Integer technologyWorkshop, String organizeCode){
-		R<Page<Technology>> r = new R<Page<Technology>>();
-		if(current!=null && size!=null && technologyWorkshop!=null && !StringUtils.isEmpty(organizeCode)) {
+	public R<List<Technology>> list(Integer technologyWorkshop, String organizeCode, String technologyName){
+		R<List<Technology>> r = new R<List<Technology>>();
+		if(technologyWorkshop!=null && !StringUtils.isEmpty(organizeCode)) {
+			Wrapper<Technology> wrapper = new EntityWrapper<Technology>();
+			wrapper.eq("technology_workshop", technologyWorkshop);
+			if(!StringUtils.isEmpty(technologyName)) {
+				wrapper.and().like("technology_name", technologyName);
+			}
+			wrapper.and().eq("organize_code", organizeCode).or().isNull("organize_code");
 			r.setCode(200);
-			r.setData(technologyService.selectPage(new Page<Technology>(current, size), new EntityWrapper<Technology>().eq("technology_workshop", technologyWorkshop)
-					.and().eq("organize_code", organizeCode).or().isNull("organize_code")));
+			r.setData(technologyService.selectList(wrapper));
+		}else {
+			r.setCode(R.NULL_PARAMETER);
+			r.setMsg(R.NULL_PARAMETER_MSG);
+		}
+		return r;
+	}
+	
+	/***
+	 * -查询生产工艺  
+	 * @param current
+	 * @param size
+	 * @param technologyWorkshop
+	 * @param organizeCode
+	 * @return
+	 */
+	@GetMapping("/select")
+	public R<List<Technology>> select(String organizeCode){
+		R<List<Technology>> r = new R<List<Technology>>();
+		if(!StringUtils.isEmpty(organizeCode)) {
+			Wrapper<Technology> wrapper = new EntityWrapper<Technology>();
+			wrapper.and().eq("organize_code", organizeCode).or().isNull("organize_code");
+			r.setCode(R.SUCCESS);
+			r.setData(technologyService.selectList(wrapper));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setMsg(R.NULL_PARAMETER_MSG);

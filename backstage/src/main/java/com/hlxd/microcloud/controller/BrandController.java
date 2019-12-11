@@ -1,17 +1,29 @@
 package com.hlxd.microcloud.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.multipart.MultipartFile;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.hlxd.microcloud.entity.Brand;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.service.BrandService;
+import com.hlxd.microcloud.util.ExcleData;
 
 /***
  * -品牌表  前端控制器
@@ -32,10 +44,10 @@ public class BrandController {
 	 * @return
 	 */
 	@PostMapping("/save")
-	public R<Boolean> save(String brandCode, String brandName, String organizeCode){
+	public R<Boolean> save(String brandCode, String brandName, String organizeCode, Integer isProduce){
 		R<Boolean> r = new R<Boolean>();
 		if(!StringUtils.isEmpty(brandCode) && !StringUtils.isEmpty(brandName) && !StringUtils.isEmpty(organizeCode)) {
-			Brand entity = new Brand(brandCode,brandName,organizeCode);
+			Brand entity = new Brand(brandCode,brandName,organizeCode,isProduce);
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.insert(entity));
 		}else {
@@ -71,12 +83,13 @@ public class BrandController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public R<Boolean> update(String brandCode, String brandName){
+	public R<Boolean> update(String brandCode, String brandName, Integer isProduce){
 		R<Boolean> r = new R<Boolean>();
-		if(!StringUtils.isEmpty(brandCode) && !StringUtils.isEmpty(brandName)) {
+		if(!StringUtils.isEmpty(brandCode)) {
 			Brand entity = new Brand();
 			entity.setBrandCode(brandCode);
 			entity.setBrandName(brandName);
+			entity.setIsProduce(isProduce);
 			r.setCode(R.SUCCESS);
 			r.setData(brandService.updateById(entity));
 		}else {
@@ -111,11 +124,18 @@ public class BrandController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	public R<Page<Brand>> list(Integer current, Integer size, String organizeCode){
+	public R<Page<Brand>> list(Integer current, Integer size, String organizeCode, String brandName, Integer isProduce){
 		R<Page<Brand>> r = new R<Page<Brand>>();
 		if(current!=null && size!=null && !StringUtils.isEmpty(organizeCode)) {
+			Wrapper<Brand> wrapper = new EntityWrapper<Brand>().eq("organize_code", organizeCode);
+			if(!StringUtils.isEmpty(brandName)) {
+				wrapper.and().like("brand_name", brandName);
+			}
+			if(isProduce!=null) {
+				wrapper.and().eq("is_produce", isProduce);
+			}
 			r.setCode(R.SUCCESS);
-			r.setData(brandService.selectPage(new Page<Brand>(current, size),new EntityWrapper<Brand>().eq("organize_code", organizeCode)));
+			r.setData(brandService.selectPage(new Page<Brand>(current, size),wrapper));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setMsg(R.NULL_PARAMETER_MSG);
@@ -123,5 +143,83 @@ public class BrandController {
 		return r;
 	}
 
+	/***
+	 * -查询工厂下的所有品牌
+	 * @param entity
+	 * @return
+	 */
+	@GetMapping("/select")
+	public R<List<Brand>> select(String organizeCode){
+		R<List<Brand>> r = new R<List<Brand>>();
+		if(!StringUtils.isEmpty(organizeCode)) {
+			Wrapper<Brand> wrapper = new EntityWrapper<Brand>().eq("organize_code", organizeCode).eq("is_produce", 1);
+			r.setCode(R.SUCCESS);
+			r.setData(brandService.selectList(wrapper));
+		}else {
+			r.setCode(R.NULL_PARAMETER);
+			r.setMsg(R.NULL_PARAMETER_MSG);
+		}
+		return r;
+	}
+	
+	/***
+	 * -导出模板
+	 * @throws IOException 
+	 */
+	@GetMapping("/export")
+	public void export(HttpServletResponse response) throws IOException {
+		@SuppressWarnings("resource")
+		HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("品牌导入模板");
+        //设置要导出的文件的名字
+        String fileName = "cigarette.xls";
+        //headers表示excel表中第一行的表头 在excel表中添加表头
+        String[] headers = { "烟卷规格编码", "烟卷规格名称", "是否在生产0/1"};
+        HSSFRow row = sheet.createRow(0);
+        for(int i=0;i<headers.length;i++){
+            HSSFCell cell = row.createCell(i);
+            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
+	}
+	
+	/***
+	 * -导入品牌
+	 * @throws IOException 
+	 */
+	@PostMapping("/import")
+	public R<Boolean> importBrand(@RequestParam("file") MultipartFile file,String organizeCode){
+		R<Boolean> r = new R<>();
+		if(!StringUtils.isEmpty(organizeCode) && !file.isEmpty()) {
+			try {
+				ExcleData excleData = new ExcleData();
+				List<String[]> list = excleData.getExcelData(file);
+				List<Brand> entityList = new ArrayList<Brand>();
+				if(list!=null && list.size()>0) {
+					for(String[] s: list) {
+						entityList.add(new Brand(excleData.isENum(s[0]),s[1],organizeCode, Double.valueOf(s[2]).intValue()));
+					}
+				}
+	            if(entityList.size()>0) {
+	            	r.setData(brandService.insertBatch(entityList));
+	            }else {
+	            	r.setData(false);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			r.setCode(R.SUCCESS);
+		}else {
+			r.setCode(R.NULL_PARAMETER);
+			r.setData(false);
+			r.setMsg(R.NULL_PARAMETER_MSG);
+		}
+		
+		return r;
+	}
 }
 

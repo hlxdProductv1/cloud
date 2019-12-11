@@ -1,11 +1,16 @@
 package com.hlxd.microcloud.controller;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.hlxd.microcloud.entity.R;
 import com.hlxd.microcloud.entity.TechnologyStandard;
@@ -55,11 +60,40 @@ public class TechnologyStandardController {
 	 * @return
 	 */
 	@GetMapping("/list")
-	public R<Page<TechnologyStandardVo>> list(Integer current, Integer size, String technologyCode){
+	public R<Page<TechnologyStandardVo>> list(Integer current, Integer size, String organizeCode, String brandCode,
+			String standardName, String technologyCode){
 		R<Page<TechnologyStandardVo>> r = new R<>();
-		if(current!=null && size!=null && !StringUtils.isEmpty(technologyCode)) {
+		if(current!=null && size!=null && !StringUtils.isEmpty(organizeCode)) {
 			r.setCode(R.SUCCESS);
-			r.setData(technologyStandardService.list(new Page<TechnologyStandardVo>(current, size), technologyCode));
+			r.setData(technologyStandardService.list(new Page<TechnologyStandardVo>(current, size), organizeCode, brandCode,
+					standardName, technologyCode));
+		}else {
+			r.setCode(R.NULL_PARAMETER);
+			r.setMsg(R.NULL_PARAMETER_MSG);
+		}
+		return r;
+	}
+	
+	/***
+	 * -查询系列生产工艺标准
+	 * @param current
+	 * @param size
+	 * @param technologyCode
+	 * @return
+	 */
+	@GetMapping("/select")
+	public R<List<TechnologyStandard>> select(String cigaretteCode, String technologyCode){
+		R<List<TechnologyStandard>> r = new R<>();
+		if(!StringUtils.isEmpty(cigaretteCode) || !StringUtils.isEmpty(technologyCode)) {
+			Wrapper<TechnologyStandard> wrapper = new EntityWrapper<TechnologyStandard>();
+			if(!StringUtils.isEmpty(cigaretteCode)) {
+				wrapper.and().eq("cigarette_code", cigaretteCode);
+			}
+			if(!StringUtils.isEmpty(technologyCode)){
+				wrapper.and().eq("technology_code", technologyCode);
+			}
+			r.setCode(R.SUCCESS);
+			r.setData(technologyStandardService.selectList(wrapper));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setMsg(R.NULL_PARAMETER_MSG);

@@ -19,5 +19,6 @@ public interface TechnologyStandardService extends IService<TechnologyStandard> 
 	 * @param technologyCode
 	 * @return
 	 */
-	Page<TechnologyStandardVo> list(Page<TechnologyStandardVo> page,String technologyCode);
+	Page<TechnologyStandardVo> list(Page<TechnologyStandardVo> page,String organizeCode, String brandCode,
+			String standardName, String technologyCode);
 }

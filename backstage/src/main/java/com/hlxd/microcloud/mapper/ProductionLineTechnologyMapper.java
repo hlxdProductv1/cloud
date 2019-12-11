@@ -20,4 +20,11 @@ public interface ProductionLineTechnologyMapper extends BaseMapper<ProductionLin
 	 * @return
 	 */
 	List<ProductionLineVo> productionLine(@Param("productionLineCode")String productionLineCode);
+	
+	/***
+	 * -查询最大编号
+	 * @param productionLineCode
+	 * @return
+	 */
+	Integer maxSerialNumber(@Param("productionLineCode")String productionLineCode);
 }
