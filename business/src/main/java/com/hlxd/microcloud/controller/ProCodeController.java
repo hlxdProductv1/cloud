@@ -72,7 +72,7 @@ public class ProCodeController {
             WrapOrder wrapOrder = wrapService.getWrapOrder(parameterMap);
             proCode.setWrapOrder(wrapOrder);
             ///根据喂丝机关系找到制丝批次信息,考虑到风力送丝到卷包有时间差，所以预留
-            String s =JedisPoolUtils.getPool("timeBreak");//取出数据库设置时间
+            String s =JedisPoolUtils.getPool(0,"timeBreak");//取出数据库设置时间
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = simpleDateFormat.parse(proCode.getProduceDate());
             date.setTime(date.getTime()-Integer.valueOf(s)*60*1000);
