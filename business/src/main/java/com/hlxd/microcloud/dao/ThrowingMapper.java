@@ -18,5 +18,5 @@ import java.util.Map;
 @Mapper
 public interface ThrowingMapper {
 
-    List<Throwing> getThrowDetails(Map map);
+    Throwing getThrowDetails(Map map);
 }

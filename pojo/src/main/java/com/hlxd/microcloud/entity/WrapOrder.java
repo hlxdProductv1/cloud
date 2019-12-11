@@ -31,6 +31,9 @@ public class WrapOrder implements Serializable {
      * */
     private String machineCode;
 
+
+    private String machineName;
+
     /**
      * 生产时间
      * */
@@ -48,6 +51,8 @@ public class WrapOrder implements Serializable {
      *
      * */
     private String brandCode;
+
+    private String brandName;
     /**
      *
      * 计划开始时间

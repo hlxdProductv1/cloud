@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.BlendingMapper">
+
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_blending
+        (id,blending_date,blending_number,line_code,brand_code,blending_formulation,plan_blending_quantity,plan_blending_weight,do_blending_quantity,do_blending_weight,blending_status,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.blendingDate},#{item.blendingNumber},#{item.lineCode},#{item.brandCode}
+            ,#{item.blendingFormulation},#{item.planBlendingQuantity},#{item.planBlendingWeight},#{item.doBlendingQuantity},#{item.doBlendingWeight},#{item.blendingStatus},#{item.remark})
+        </foreach>
+    </insert>
+
+    <insert id="batchInsertDetails" parameterType="java.util.ArrayList">
+        insert into t_pro_blending_details
+        (id,blending_number,box_code,blending_date,tobacco_year,produce_area,breed,level,gross_weight,net_weight,redry_number,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.blendingNumber},#{item.boxCode},#{item.blendingDate},#{item.tobaccoYear}
+            ,#{item.produceArea},#{item.breed},#{item.level},#{item.grossWeight},#{item.netWeight},#{item.redryNumber},#{item.remark})
+        </foreach>
+    </insert>
+
+
+
+
+
+
+</mapper>

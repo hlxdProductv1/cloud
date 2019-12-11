@@ -57,6 +57,8 @@ public class Verification implements Serializable {
      * 备注
      * */
     private String remark;
+
+    private String batchNumber;
     /**
      * 扣分，检验子项
      * */

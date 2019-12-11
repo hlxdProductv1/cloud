@@ -16,5 +16,5 @@ import java.util.Map;
  */
 public interface IThrowingService {
 
-    List<Throwing> getThrowingDetails(Map map);
+    Throwing getThrowingDetails(Map map);
 }

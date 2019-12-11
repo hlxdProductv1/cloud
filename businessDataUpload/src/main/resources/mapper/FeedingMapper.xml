@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.FeedingMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_feeding_record
+        (id,throwing_number,start_feeding_date,end_feeding_date,equipment_code,feeding_equipment_code,remark,organize_code)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.throwingNumber},#{item.startFeedingDate},#{item.endFeedingDate},#{item.machineCode}
+            ,#{item.feedingMachineCode},#{item.remark},#{item.organizeCode})
+        </foreach>
+    </insert>
+
+
+</mapper>

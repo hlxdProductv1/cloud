@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.MaterialConsumeMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_logistics
+        (id,material_code,logistics_number,unit_name,do_use,do_unit_name,remark,batch_number)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.materialCode},#{item.logisticsNumber},#{item.unitName},
+            #{item.doUse},#{item.doUnitName},#{item.remark},#{item.batchNumber}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

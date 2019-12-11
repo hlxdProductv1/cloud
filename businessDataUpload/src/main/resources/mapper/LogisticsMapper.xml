@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.LogisticsMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_logistics
+        (id,qr_code,in_house_date,out_house_date)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.qrCode},#{item.inHouseDate},#{item.outHouseDate})
+        </foreach>
+    </insert>
+
+
+</mapper>

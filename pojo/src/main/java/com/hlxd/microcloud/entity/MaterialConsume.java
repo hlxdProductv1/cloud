@@ -51,6 +51,8 @@ public class MaterialConsume implements Serializable {
      * */
     private String remark;
 
+    private String batchNumber;
+
     /**
      * 辅料消耗详情
      * */

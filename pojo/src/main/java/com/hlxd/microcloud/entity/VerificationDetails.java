@@ -29,10 +29,14 @@ public class VerificationDetails implements Serializable {
      * */
     private String itemCode;
 
+    private String itemName;
+
     /**
      * 样本平均值
      * */
     private String average;
+
+    private String standValue;
     /**
      * 样本最大值
      *

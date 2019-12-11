@@ -6,11 +6,14 @@
 
     <resultMap type="com.hlxd.microcloud.entity.WrapOrder" id="baseMap">
         <result column="id" property="id"/>
-        <result column="wrapNumber" property="wrapNumber"/>
+        <result column="wrapNumber" property="wrapsNumber"/>
         <result column="machineCode" property="machineCode"/>
+        <result column="machineName" property="machineName"/>
         <result column="produceDate" property="produceDate"/>
         <result column="classId" property="classId"/>
+        <result column="className" property="className"/>
         <result column="brandCode" property="brandCode"/>
+        <result column="brandName" property="brandName"/>
         <result column="planBeginDate" property="planBeginDate"/>
         <result column="planEndDate" property="planEndDate"/>
         <result column="planQuantity" property="planQuantity"/>
@@ -24,6 +27,7 @@
             <result column="wrap_self_verificationType" property="verificationType"/>
             <result column="wrap_self_simpleDate" property="simpleDate"/>
             <result column="wrap_self_simpleCount" property="simpleCount"/>
+            <result column="wrap_self_verificationPeople" property="verificationPeople"/>
             <result column="wrap_self_score" property="score"/>
             <result column="wrap_self_remark" property="remark"/>
             <collection property="verificationDetails" ofType="com.hlxd.microcloud.entity.VerificationDetails">
@@ -32,8 +36,9 @@
                 <result column="wrap_spot_details_itemName" property="itemName"/>
                 <result column="wrap_spot_details_itemCode" property="itemCode"/>
                 <result column="wrap_spot_details_standValue" property="standValue"/>
-                <result column="wrap_spot_details_max" property="max"/>
-                <result column="wrap_spot_details_min" property="min"/>
+                <result column="wrap_spot_details_average" property="average"/>
+                <result column="wrap_spot_details_max" property="simpleMax"/>
+                <result column="wrap_spot_details_min" property="simpleMin"/>
                 <result column="wrap_spot_details_cv" property="cv"/>
                 <result column="wrap_spot_details_cpk" property="cpk"/>
                 <result column="wrap_spot_details_matchRate" property="matchRate"/>
@@ -46,10 +51,10 @@
             <result column="consume_unitName" property="unitName"/>
             <result column="consume_materialCode" property="materialCode"/>
             <result column="consume_materialName" property="materialName"/>
-            <result column="consume_logistics" property="logistics"/>
+            <result column="consume_logistics" property="logisticsNumber"/>
             <result column="consume_doUnitName" property="doUnitName"/>
             <result column="consume_remark" property="remark"/>
-            <collection property="verificationDetails" ofType="com.hlxd.microcloud.entity.VerificationDetails">
+            <collection property="materialConsumeDetails" ofType="com.hlxd.microcloud.entity.MaterialConsumeDetails">
                 <result column="consume_details_id" property="id"/>
                 <result column="consume_details_consumeId" property="consumeId"/>
                 <result column="consume_details_boxCode" property="boxCode"/>
@@ -65,13 +70,16 @@
     </resultMap>
 
     <select id="getWrapOrder"  resultMap="baseMap" parameterType="java.util.HashMap">
-       select
+              select
 tpw.id,
 tpw.wraps_number as wrapNumber,
 tpw.equipment_code as machineCode,
+(select equipment_name from t_pro_equipment where equipment_code = tpw.equipment_code )as machineName,
 tpw.produce_date as produceDate,
 tpw.class_id as classId,
+(select shifts_name from t_pro_shifts where shifts_code = tpw.class_id) as className,
 tpw.brand_code as brandCode,
+(select brand_name from t_pro_brand where brand_code = tpw.brand_code) as brandName,
 tpw.plan_begin_date as planBeginDate,
 tpw.plan_end_date as planEndDate,
 tpw.plan_quantity as planQuantity,
@@ -85,6 +93,7 @@ tpv.verification_number as wrap_self_verificationNumber,
 tpv.verification_type as wrap_self_verificationType,
 tpv.simple_date as wrap_self_simpleDate,
 tpv.simple_count as wrap_self_simpleCount,
+tpv.verification_people as wrap_self_verificationPeople,
 tpv.score as wrap_self_score,
 tpv.remark as wrap_self_remark,
 /*检测详情数据*/
@@ -95,6 +104,7 @@ tpts.standard_name as wrap_spot_details_itemName,
 tpts.standard_value as wrap_spot_details_standValue,
 tpvd.simple_max as wrap_spot_details_max,
 tpvd.simple_min as wrap_spot_details_min,
+tpvd.average as wrap_spot_details_average,
 tpvd.cv as wrap_spot_details_cv,
 tpvd.CPK as wrap_spot_details_cpk,
 tpvd.match_rate as wrap_spot_details_matchRate,

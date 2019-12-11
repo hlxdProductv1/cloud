@@ -40,22 +40,25 @@ public class JedisPoolUtils {
         return pool.getResource();
     }
     //存值：
-    public static void setPool(String key,String value){
+    public static void setPool(Integer dataBase,String key,String value){
         Jedis jedis = getJedis();
+        jedis.select(dataBase);
         jedis.set(key,value);
         jedis.close();
     }
     //取值：
-    public static String getPool(String key){
+    public static String getPool(Integer dataBase,String key){
         Jedis jedis = getJedis();
+        jedis.select(dataBase);
         String s =jedis.get(key);
         jedis.close();
         return s ;
     }
 
     //删除值
-    public static void delValue(String key, List<String> list){
+    public static void delValue(Integer dataBase,String key, List<String> list){
         Jedis jedis = getJedis();
+        jedis.select(dataBase);
         for (String i :list ) {
             jedis.lrem(key,0,i);
         }
@@ -63,6 +66,7 @@ public class JedisPoolUtils {
     }
     public static void delAllValue(){
         Jedis jedis = getJedis();
+        //jedis.select(dataBase);
         jedis.flushAll();
     }
 

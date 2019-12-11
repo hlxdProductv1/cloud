@@ -75,7 +75,7 @@ public class ProCode implements Serializable {
     /**
      * 制丝工单数据
      * */
-    private List<Throwing> throwing;
+    private Throwing throwing;
 
 
 

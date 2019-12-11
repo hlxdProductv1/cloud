@@ -24,6 +24,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCircuitBreaker
 @MapperScan("com.hlxd.microcloud.dao")
 @EnableScheduling
+@EnableFeignClients("com.hlxd.microcloud.feign")
 public class CacheApplication {
   public static void main(String[] args) {
       SpringApplication.run(CacheApplication.class,args);
