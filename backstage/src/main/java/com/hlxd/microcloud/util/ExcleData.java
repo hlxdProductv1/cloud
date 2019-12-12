@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,9 +21,44 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+/***
+ * -读取excle文件
+ * @version 1.0
+ * @author SmallOath
+ * @date 2019年12月11日
+ */
 public class ExcleData {
+	
+	/***
+	 * -导出模板
+	 * @param headers
+	 * @param fileName
+	 * @param response
+	 * @throws IOException
+	 */
+	public void export(String[] headers, String fileName, HttpServletResponse response) throws IOException {
+		@SuppressWarnings("resource")
+		HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("导入数据");
+        HSSFRow row = sheet.createRow(0);
+        for(int i=0;i<headers.length;i++){
+            HSSFCell cell = row.createCell(i);
+            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+            cell.setCellValue(text);
+        }
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+        response.flushBuffer();
+        workbook.write(response.getOutputStream());
+	}
+	
+	/***
+	 * -解析excle文件
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
 	public List<String[]> getExcelData(MultipartFile file) throws IOException{
-		
         //获得Workbook工作薄对象
         Workbook workbook = getWorkBook(file);
         //创建返回对象，把每行中的值作为一个数组，所有行作为一个集合返回
@@ -79,7 +120,11 @@ public class ExcleData {
         return workbook;
     }
 	
-	//判断输入字符串是否为科学计数法
+	/***
+	 * -判断输入字符串是否为科学计数法
+	 * @param input
+	 * @return
+	 */
 	public String isENum(String input) {
 		Pattern pattern = Pattern.compile("(-?\\d+\\.?\\d*)[Ee]{1}[\\+-]?[0-9]*");
 		DecimalFormat ds = new DecimalFormat("0");

@@ -109,7 +109,7 @@ public class EquipmentController {
 	}
 	
 	/***
-	 * -查询单个设备
+	 * -查询设备下拉列表
 	 * @param equipmentCode
 	 * @exception UserNotFoundException
 	 * @return

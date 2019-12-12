@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -168,24 +163,12 @@ public class BrandController {
 	 */
 	@GetMapping("/export")
 	public void export(HttpServletResponse response) throws IOException {
-		@SuppressWarnings("resource")
-		HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("品牌导入模板");
-        //设置要导出的文件的名字
         String fileName = "cigarette.xls";
-        //headers表示excel表中第一行的表头 在excel表中添加表头
         String[] headers = { "烟卷规格编码", "烟卷规格名称", "是否在生产0/1"};
-        HSSFRow row = sheet.createRow(0);
-        for(int i=0;i<headers.length;i++){
-            HSSFCell cell = row.createCell(i);
-            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
-            cell.setCellValue(text);
-        }
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
-        response.flushBuffer();
-        workbook.write(response.getOutputStream());
+        ExcleData excleData = new ExcleData();
+        excleData.export(headers, fileName, response);
 	}
+
 	
 	/***
 	 * -导入品牌
@@ -218,7 +201,6 @@ public class BrandController {
 			r.setData(false);
 			r.setMsg(R.NULL_PARAMETER_MSG);
 		}
-		
 		return r;
 	}
 }
