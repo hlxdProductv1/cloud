@@ -21,5 +21,6 @@ public interface TechnologyStandardMapper extends BaseMapper<TechnologyStandard>
 	 * @param technologyCode
 	 * @return
 	 */
-	List<TechnologyStandardVo> list(Pagination page,@Param("technologyCode")String technologyCode);
+	List<TechnologyStandardVo> list(Pagination page, @Param("organizeCode")String organizeCode, @Param("brandCode")String brandCode,
+			@Param("standardName")String standardName, @Param("technologyCode")String technologyCode);
 }

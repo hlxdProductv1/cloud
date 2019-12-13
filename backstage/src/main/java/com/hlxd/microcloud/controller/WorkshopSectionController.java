@@ -2,7 +2,6 @@ package com.hlxd.microcloud.controller;
 
 import java.util.Calendar;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +44,7 @@ public class WorkshopSectionController {
 			entity.setWorkshopSectionCode(code.toString());
 			entity.setWorkshopSectionName(workshopSectionName);
 			entity.setOrganizeCode(organizeCode);
+			entity.setTechnologyWorkshop(technologyWorkshop);
 			r.setCode(R.SUCCESS);
 			r.setData(workshopSection.insert(entity));
 		}else {

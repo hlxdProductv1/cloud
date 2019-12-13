@@ -1,8 +1,6 @@
 package com.hlxd.microcloud.entity.vo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
 import lombok.Data;
 
 @Data
@@ -32,6 +30,10 @@ public class TechnologyStandardVo implements Serializable{
 	 */
 	private String cigaretteCode;
 	/**
+	 * 卷烟规格名称
+	 */
+	private String cigaretteName;
+	/**
 	 * 指标类型 1.定量2.定性
 	 */
 	private Integer standardType;
@@ -40,15 +42,19 @@ public class TechnologyStandardVo implements Serializable{
 	 */
 	private String unit;
 	/**
-	 * 标准值 private BigDecimal standardValue; /** 最大值
+	 * 标准值 
 	 */
-	private BigDecimal maximum;
+	private Double standardValue;
+	/**
+	 * 最大值
+	 */
+	private Double maximum;
 	/**
 	 * 最小值
 	 */
-	private BigDecimal minimum;
+	private Double minimum;
 	/**
 	 * 分数
 	 */
-	private BigDecimal fraction;
+	private Double fraction;
 }

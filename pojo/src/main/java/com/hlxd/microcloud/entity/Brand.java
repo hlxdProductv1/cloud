@@ -40,6 +40,11 @@ public class Brand extends Model<Brand> {
     @TableField("organize_code")
     private String organizeCode;
 
+    /**
+     * 是否正在生产
+     */
+    @TableField("is_produce")
+    private Integer isProduce;
 
     @Override
     protected Serializable pkVal() {
@@ -47,9 +52,10 @@ public class Brand extends Model<Brand> {
     }
 
     public Brand() {}
-    public Brand(String brandCode, String brandName, String organizeCode) {
+    public Brand(String brandCode, String brandName, String organizeCode, Integer isProduce) {
     	this.brandCode = brandCode;
     	this.brandName = brandName;
     	this.organizeCode = organizeCode;
+    	this.isProduce = isProduce;
     }
 }

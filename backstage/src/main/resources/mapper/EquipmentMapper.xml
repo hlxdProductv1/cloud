@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.mapper.EquipmentMapper">
-
+<!-- 组织机构树 -->
+    <select id="equipmentTree" resultType="com.hlxd.microcloud.entity.vo.EquipmentTreeVo">
+        select 
+		equipment_code as id,
+		equipment_name as title,
+		superior_equipment_code as parentId
+		from t_pro_equipment
+		<where>
+		    <if test='organizeCode!=null and organizeCode!=""'>
+		        and organize_code = #{organizeCode}
+		    </if>
+		    <if test='equipmentType!=null'>
+		        and equipment_type = #{equipmentType}
+		    </if>
+		    <if test='superiorEquipmentCode!=null and superiorEquipmentCode!=""'>
+		        and superior_equipment_code = #{superiorEquipmentCode}
+		    </if>
+		</where>
+		order by equipment_name
+    </select>
 </mapper>

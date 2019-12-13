@@ -1,11 +1,11 @@
 package com.hlxd.microcloud.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +31,6 @@ public class OrganizeController {
 
 	@Autowired
 	private OrganizeService organizeService;
-
-	private static Logger logger = LoggerFactory.getLogger(OrganizeController.class);
 	
 	/***
 	 * -批量添加组织结构
@@ -41,18 +39,21 @@ public class OrganizeController {
 	 */
 	@PostMapping("/saveBatch")
 	@Transactional
+	@CacheEvict(value="organize",allEntries=true)
 	public R<Boolean> saveBatch(@RequestBody List<Organize> entityList) {
 		R<Boolean> r = new R<Boolean>();
 		if (entityList != null && entityList.size()>0) {
 			boolean bl = true;
-			for(Organize o : entityList) {
-				o.setOrganizeCode(organizeService.uuid(o.getSuperiorOrganizeCode()).toString());
-				bl = organizeService.insert(o);
+			Iterator<Organize> iterator = entityList.iterator();
+			while(iterator.hasNext()) {
+				Organize item = iterator.next();
+				item.setOrganizeCode(organizeService.uuid(item.getSuperiorOrganizeCode()).toString());
+				bl = organizeService.insert(item);
 				if(bl == false) {
 	    			try {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					}catch (Exception e) {
-						logger.debug(e.getMessage());
+						e.printStackTrace();
 					}
 				}
 			}
@@ -72,6 +73,7 @@ public class OrganizeController {
 	 * @return
 	 */
 	@PostMapping("/save")
+	@CacheEvict(value="organize",allEntries=true)
 	public R<Boolean> save(Organize organize) {
 		R<Boolean> r = new R<Boolean>();
 		if (organize != null) {
@@ -92,6 +94,7 @@ public class OrganizeController {
 	 * @return
 	 */
 	@GetMapping("/list")
+	@Cacheable(value="organize")
 	public R<List<OrganizeTreeVo>> list(String organizeCode){
 		R<List<OrganizeTreeVo>> r = new R<>();
 		List<OrganizeTreeVo> tree = organizeService.organizeTree(0, organizeCode, null);
@@ -106,11 +109,13 @@ public class OrganizeController {
 	 * @param list
 	 */
 	private void digui(List<OrganizeTreeVo> list) {
-		List<OrganizeTreeVo> tree = new ArrayList<OrganizeTreeVo>();
-        for (OrganizeTreeVo c : list) {
-        	tree = organizeService.organizeTree(null, null, c.getId());
-            if (tree.size() > 0) {
-            	c.setChildren(tree);
+		List<OrganizeTreeVo> tree = null;
+		OrganizeTreeVo o = null;
+        for (int i=0,length=list.size();i<length;i++) {
+        	o = list.get(i);
+        	tree = organizeService.organizeTree(null, null, o.getId());
+            if (tree!=null && tree.size() > 0) {
+            	o.setChildren(tree);
                 digui(tree);
             }else {
             	break;
@@ -125,6 +130,7 @@ public class OrganizeController {
 	 * @return
 	 */
 	@PostMapping("/update")
+	@CacheEvict(value="organize",allEntries=true)
 	public R<Boolean> update(String organizeCode, String organizeName,String superiorOrganizeCode){
 		R<Boolean> result = new R<>();
 		if(!StringUtils.isEmpty(organizeCode) && !StringUtils.isEmpty(organizeName)) {
@@ -154,6 +160,7 @@ public class OrganizeController {
 	 * @return
 	 */
 	@PostMapping("/remove")
+	@CacheEvict(value="organize",allEntries=true)
 	public R<Boolean> remove(String organizeCode){
 		R<Boolean> result = new R<>();
 		if(!StringUtils.isEmpty(organizeCode)) {
