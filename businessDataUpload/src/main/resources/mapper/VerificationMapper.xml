@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.VerificationMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_verification
+        (id,verification_number,verification_type,simple_date,simple_count,score,verification_people,remark,batch_number)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.verificationNumber},#{item.verificationType},#{item.simpleDate},
+            #{item.simpleCount},#{item.score},#{item.verificationPeople},#{item.remark},#{item.batchNumber}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="batchInsertDetails" parameterType="java.util.ArrayList">
+        insert into t_pro_verification_details
+        (id,verification_id,item_code,average,simple_max,simple_min,CPK,CV,match_rate,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.verificationId},#{item.itemCode},#{item.average},
+            #{item.simpleMax},#{item.simpleMin},#{item.cpk},#{item.cv},#{item.matchRate},#{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

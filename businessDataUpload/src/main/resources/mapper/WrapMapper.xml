@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.WrapsMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_warpOrder
+        (id,wraps_number,equipment_code,produce_date,class_id,brand_code,plan_begin_date,
+        plan_end_date,plan_quantity,do_begin_date,do_end_date,do_quantity,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.wrapsNumber},#{item.machineCode},#{item.produceDate},
+            #{item.classId},#{item.brandCode},#{item.planBeginDate},#{item.planEndDate},
+            #{item.planQuantity},#{item.doBeginDate},#{item.doEndDate},#{item.doQuantity},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

@@ -30,6 +30,7 @@
             <result column="wrap_self_verificationPeople" property="verificationPeople"/>
             <result column="wrap_self_score" property="score"/>
             <result column="wrap_self_remark" property="remark"/>
+            <result column="wrap_self_batchNumber" property="batchNumber"/>
             <collection property="verificationDetails" ofType="com.hlxd.microcloud.entity.VerificationDetails">
                 <result column="wrap_spot_details_id" property="id"/>
                 <result column="wrap_spot_details_verificationId" property="verificationId"/>
@@ -96,6 +97,7 @@ tpv.simple_count as wrap_self_simpleCount,
 tpv.verification_people as wrap_self_verificationPeople,
 tpv.score as wrap_self_score,
 tpv.remark as wrap_self_remark,
+tpv.batch_number as wrap_self_batchNumber,
 /*检测详情数据*/
 tpvd.id as wrap_spot_details_id,
 tpvd.verification_id as wrap_spot_details_verificationId,

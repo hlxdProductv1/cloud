@@ -4,12 +4,24 @@
 <mapper namespace="com.hlxd.microcloud.dao.MaterialConsumeMapper">
 
     <insert id="batchInsert" parameterType="java.util.ArrayList">
-        insert into t_pro_logistics
+        insert into t_pro_materialConsume
         (id,material_code,logistics_number,unit_name,do_use,do_unit_name,remark,batch_number)
         values
         <foreach collection="list" item="item" separator=",">
             (#{item.id},#{item.materialCode},#{item.logisticsNumber},#{item.unitName},
             #{item.doUse},#{item.doUnitName},#{item.remark},#{item.batchNumber}
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="batchInsertDetails" parameterType="java.util.ArrayList">
+        insert into t_pro_materialConsume_details
+        (id,consume_id,box_code,begin_date,end_date,produce_date,purchase_number,supplier,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.consumeId},#{item.boxCode},#{item.beginDate},
+            #{item.endDate},#{item.produceDate},#{item.purchaseNumber},#{item.supplier},#{item.remark}
             )
         </foreach>
     </insert>

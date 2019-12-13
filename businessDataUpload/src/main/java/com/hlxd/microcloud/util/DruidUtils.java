@@ -41,10 +41,10 @@ public class DruidUtils {
     // 配置说明，参考官方网址
     @PostConstruct
     public void init() {
-        dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl(url);
-        dataSource.setUsername(user);// 用户名
-        dataSource.setPassword(pwd);// 密码
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://134.175.90.151:3306/product_v2?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false");
+        dataSource.setUsername("root");// 用户名
+        dataSource.setPassword("Hlxd@123456");// 密码
         dataSource.setInitialSize(10);
         dataSource.setMaxActive(15);
         dataSource.setMinIdle(5);

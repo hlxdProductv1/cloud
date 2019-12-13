@@ -1,6 +1,6 @@
 package com.hlxd.microcloud.service.impl;
 
-import com.hlxd.microcloud.dao.ThrowingMapper;
+import com.hlxd.microcloud.dao.ThrowingsMapper;
 import com.hlxd.microcloud.entity.Throwing;
 import com.hlxd.microcloud.service.IThrowingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 public class ThrowingServiceImpl implements IThrowingService {
     @Autowired
-    private ThrowingMapper throwingMapper;
+    private ThrowingsMapper throwingMapper;
 
     @Override
     public Throwing getThrowingDetails(Map map) {

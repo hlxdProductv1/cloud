@@ -26,4 +26,6 @@ public class CommonConstants {
 
     public final static String http_message="message";
 
+    public final static String http_success="success";
+
 }

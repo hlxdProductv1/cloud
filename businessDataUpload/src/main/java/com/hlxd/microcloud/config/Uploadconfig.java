@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.security.acl.LastOwnerException;
 import java.sql.*;
@@ -65,7 +66,8 @@ public class Uploadconfig {
      * 数据同步
      *
      * **/
-    @Scheduled(cron = "0 0 0 ? * * ")
+    @Scheduled(cron = "0 55 15 ? * * ")
+    //@PostConstruct
     public void uploadMethod() throws ParseException, SQLException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         ThreadPoolManager threadPoolManager = ThreadPoolManager.newInstance();//线程池管理
@@ -90,18 +92,19 @@ public class Uploadconfig {
         try{
             sqlServer = DruidUtils.getConnection();
             st = sqlServer.createStatement();
-            f =st.execute("select * from wrapsOrder where str_to_date(produceDate,'yyyy-MM-dd')="+date);//卷包工单
+            f =st.execute("select * from wrapsOrder where str_to_date(produceDate,'%Y-%m-%d')= '"+date+"'");//卷包工单
             if(f){
                 rs = st.getResultSet();
                 if(null != rs ){
                     ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                    //log.info(rs.+"");
                     while (rs.next()){
                         WrapOrder wrapOrder = new WrapOrder();
                         for(int i=1;i<resultSetMetaData.getColumnCount();i++){
                             String columnName = resultSetMetaData.getColumnName(i);
                             String value = rs.getString(i);
                             switch (columnName){
-                                case "wrapsNumber": wrapOrder.setWrapsNumber(value);
+                                case "wraps_number": wrapOrder.setWrapsNumber(value);
                                     break;case "equipment_code": wrapOrder.setMachineCode(value);
                                     break;case "produce_date": wrapOrder.setProduceDate(value);
                                     break;case "shiftId": wrapOrder.setClassId(value);
@@ -135,7 +138,7 @@ public class Uploadconfig {
                 }
             }
             //剔除统计
-            f =st.execute("select * from reject where str_to_date(produceDate,'yyyy-MM-dd')="+date);//剔除统计
+            f =st.execute("select * from reject where str_to_date(reject_date,'%Y-%m-%d')='"+date+"'");//剔除统计
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -147,8 +150,8 @@ public class Uploadconfig {
                             String columnName = resultSetMetaData.getColumnName(i);
                             String value = rs.getString(i);
                             switch (columnName){
-                                case "produce_date": reject.setRejectDate(value);
-                                    break;case "machine_name": reject.setRejectType(value=="包装机"?"2":"1");
+                                case "reject_date": reject.setRejectDate(value);
+                                    break;case "machine_name": reject.setRejectType(value);
                                     break;case "machine_code": reject.setMachineCode(value);
                                     break;case "reject_reason": reject.setRejectReason(value);
                                     break;default: break;
@@ -173,7 +176,7 @@ public class Uploadconfig {
                 }
             }
             //辅料消耗统计
-            f =st.execute("select * from materialConsume where str_to_date(produceDate,'yyyy-MM-dd')="+date);//辅料消耗统计
+            f =st.execute("select * from materialConsume where str_to_date(produceDate,'%Y-%m-%d')='"+date+"'");//辅料消耗统计
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -248,7 +251,7 @@ public class Uploadconfig {
                 }
             }
             //检查记录
-            f = st.execute("select * from verification where str_to_date(produceDate,'yyyy-MM-dd')="+date); //检查记录
+            f = st.execute("select * from verification where str_to_date(simple_date,'%Y-%m-%d')='"+date+"'"); //检查记录
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -276,6 +279,7 @@ public class Uploadconfig {
                                     break;case "cpk": verificationDetails1.setCpk(rs.getString(i));
                                     break;case "cv": verificationDetails1.setCv(rs.getString(i));
                                     break;case "match_rate": verificationDetails1.setMatchRate(rs.getString(i));
+                                    break;case "d_remark": verificationDetails1.setRemark(rs.getString(i));
                                     break;default: break;
                             }
                         }
@@ -319,7 +323,7 @@ public class Uploadconfig {
                 }
             }
             //投料记录
-            f = st.execute("select * from blending where str_to_date(produceDate,'yyyy-MM-dd')="+date); //投料记录
+            f = st.execute("select * from blending where str_to_date(blending_date,'%Y-%m-%d')='"+date+"'"); //投料记录
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -398,7 +402,7 @@ public class Uploadconfig {
                 }
             }
             //制丝记录
-            f = st.execute("select * from throwing where str_to_date(produceDate,'yyyy-MM-dd')="+date);//制丝记录
+            f = st.execute("select * from throwing where str_to_date(do_begin_date,'%Y-%m-%d')='"+date+"'");//制丝记录
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -443,7 +447,7 @@ public class Uploadconfig {
                 }
             }
             //喂丝记录
-            f = st.execute("select * from feeding_record where str_to_date(produceDate,'yyyy-MM-dd')="+date); //喂丝记录
+            f = st.execute("select * from feeding_record where str_to_date(start_feeding_date,'%Y-%m-%d')='"+date+"'"); //喂丝记录
             rs = null;
             if(f){
                 rs = st.getResultSet();
@@ -484,7 +488,7 @@ public class Uploadconfig {
                 }
             }
             //入库记录
-            f = st.execute("select * from logistics where str_to_date(produceDate,'yyyy-MM-dd')="+date); //喂丝记录
+            f = st.execute("select * from logistics where str_to_date(in_house_date,'%Y-%m-%d')='"+date+"'"); //喂丝记录
             rs = null;
             if(f){
                 rs = st.getResultSet();

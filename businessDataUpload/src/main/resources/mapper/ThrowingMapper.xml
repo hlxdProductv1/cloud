@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hlxd.microcloud.dao.ThrowingsMapper">
+
+    <insert id="batchInsert" parameterType="java.util.ArrayList">
+        insert into t_pro_throwing
+        (id,throwing_number,plan_begin_date,plan_end_date,do_begin_date,do_end_date,blending_weight,
+        product_weight,line_code,section_id,class_id,blending_number,remark)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.throwingNumber},#{item.planBeginDate},#{item.planEndDate},
+            #{item.doBeginDate},#{item.doEndDate},#{item.blendingWeight},#{item.productWeight},
+            #{item.lineCode},#{item.sectionCode},#{item.classId},#{item.blendingNumber},
+            #{item.remark}
+            )
+        </foreach>
+    </insert>
+
+
+</mapper>

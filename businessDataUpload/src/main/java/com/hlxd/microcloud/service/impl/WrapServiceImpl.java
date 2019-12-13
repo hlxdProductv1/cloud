@@ -1,6 +1,6 @@
 package com.hlxd.microcloud.service.impl;
 
-import com.hlxd.microcloud.dao.WrapMapper;
+import com.hlxd.microcloud.dao.WrapsMapper;
 import com.hlxd.microcloud.entity.WrapOrder;
 import com.hlxd.microcloud.service.WrapService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,16 +21,16 @@ import java.util.Map;
 @Service
 public class WrapServiceImpl implements WrapService {
     @Autowired
-    private WrapMapper wrapMapper;
+    private WrapsMapper wrapsMapper;
 
 
     @Override
     public WrapOrder getWrapOrder(Map map) {
-        return wrapMapper.getWrapOrder(map);
+        return wrapsMapper.getWrapOrder(map);
     }
 
     @Override
     public void batchInsert(List<WrapOrder> wrapOrders) {
-        wrapMapper.batchInsert(wrapOrders);
+        wrapsMapper.batchInsert(wrapOrders);
     }
 }

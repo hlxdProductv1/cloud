@@ -6,6 +6,9 @@ spring:
     url: jdbc:mysql://134.175.90.151:3306/product_v1?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: Hlxd@123456
+    url1: jdbc:mysql://134.175.90.151:3306/product_v2?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username1: root
+    password1: Hlxd@123456
     driver-class-name: com.mysql.jdbc.Driver
     configuration:
       MapUnderscoreToCamelCase: true

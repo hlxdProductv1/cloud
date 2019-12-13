@@ -5,6 +5,7 @@ import com.hlxd.microcloud.entity.MaterialConsume;
 import com.hlxd.microcloud.entity.MaterialConsumeDetails;
 import com.hlxd.microcloud.service.IMaterialConsumeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @COMPANY HLXD
  * @PROJECT hlxdmicrocloud
  */
+@Service
 public class MaterialConsumeServiceImpl implements IMaterialConsumeService {
     @Autowired
     private MaterialConsumeMapper materialConsumeMapper;

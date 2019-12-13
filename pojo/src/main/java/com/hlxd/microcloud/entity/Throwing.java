@@ -39,7 +39,7 @@ public class Throwing implements Serializable {
     /**
      * 实际开始时间
      * */
-    private String doBeginDate;
+        private String doBeginDate;
 
     /**
      * 实际结束时间

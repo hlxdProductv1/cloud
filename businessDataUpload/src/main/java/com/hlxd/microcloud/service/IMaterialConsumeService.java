@@ -1,6 +1,5 @@
 package com.hlxd.microcloud.service;
 
-import com.hlxd.microcloud.dao.MaterialConsumeMapper;
 import com.hlxd.microcloud.entity.MaterialConsume;
 import com.hlxd.microcloud.entity.MaterialConsumeDetails;
 
