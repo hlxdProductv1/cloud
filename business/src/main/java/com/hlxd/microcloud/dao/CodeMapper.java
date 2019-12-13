@@ -2,7 +2,9 @@ package com.hlxd.microcloud.dao;
 
 import com.hlxd.microcloud.entity.ProCode;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +20,8 @@ import java.util.Map;
 public interface CodeMapper {
 
     ProCode getCodeDetails(Map map);
+
+    List<ProCode> getCodeByWrap(@Param("machineCode") String machineCode, @Param("doBeginDate")String doBeginDate, @Param("doEndDate")String doEndDate);
+
+    List<ProCode> getCodeByTime(@Param("startFeedingDate")String startFeedingDate,@Param("endFeedingDate")String endFeedingDate);
 }

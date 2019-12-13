@@ -27,4 +27,9 @@ public class ThrowingServiceImpl implements IThrowingService {
     public Throwing getThrowingDetails(Map map) {
         return throwingMapper.getThrowDetails(map);
     }
+
+    @Override
+    public Throwing getThrowByOrder(String throwingNumber) {
+        return throwingMapper.getThrowByOrder(throwingNumber);
+    }
 }

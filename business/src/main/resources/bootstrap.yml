@@ -2,16 +2,16 @@ spring:
   application:
     name: code-server
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource 
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://134.175.90.151:3306/product_v1?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: Hlxd@123456
     driver-class-name: com.mysql.jdbc.Driver
     configuration:
       MapUnderscoreToCamelCase: true
-    dbcp2: 
-      min-idle: 5                                
-      initial-size: 5                              
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
       max-total: 5
       max-wait-millis: 200
 
@@ -37,7 +37,7 @@ feign:
     response:
       enabled: true
 
-  
+
 mybatis:
   mapper-locations: classpath:/mapper/*Mapper.xml
   typeAliasesPackage: com.hlxd.microcloud.entity
@@ -62,7 +62,7 @@ info:
 logging:
   level:
     com.hlxd.microcloud.dao : debug
-    
+
 security:
   basic:
     enabled: false

@@ -2,6 +2,7 @@ package com.hlxd.microcloud.dao;
 
 import com.hlxd.microcloud.entity.Throwing;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +20,6 @@ import java.util.Map;
 public interface ThrowingMapper {
 
     Throwing getThrowDetails(Map map);
+
+    Throwing getThrowByOrder(@Param("throwingNumber") String throwingNumber);
 }

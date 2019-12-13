@@ -17,4 +17,6 @@ import java.util.Map;
 public interface IThrowingService {
 
     Throwing getThrowingDetails(Map map);
+
+    Throwing getThrowByOrder(String throwingNumber);
 }

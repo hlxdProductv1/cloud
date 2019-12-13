@@ -18,4 +18,7 @@ public interface IFeedingService {
 
 
     List<FeedingRecord> getFeedingRecord(Map map);
+
+    //根据喂丝机号和喂丝时间获取制丝号
+    FeedingRecord selectByFeed(String feedTime,String feedingMachineCode);
 }
