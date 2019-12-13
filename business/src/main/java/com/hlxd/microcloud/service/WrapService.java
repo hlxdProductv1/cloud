@@ -2,6 +2,7 @@ package com.hlxd.microcloud.service;
 
 import com.hlxd.microcloud.entity.WrapOrder;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,5 +15,10 @@ import java.util.Map;
  * @PROJECT hlxdmicrocloud
  */
 public interface WrapService {
+
     WrapOrder getWrapOrder(Map map);
+
+    List<WrapOrder> selectByWrapOrder(String machineCode, String produceDate, String classId);
+
+    WrapOrder selectByNumber(String wrapsNumber);
 }

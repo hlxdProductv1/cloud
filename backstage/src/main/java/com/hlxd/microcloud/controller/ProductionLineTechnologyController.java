@@ -1,12 +1,11 @@
 package com.hlxd.microcloud.controller;
 
 import java.util.List;
-import java.util.UUID;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.hlxd.microcloud.entity.ProductionLineTechnology;
@@ -28,17 +27,22 @@ public class ProductionLineTechnologyController {
 	private ProductionLineTechnologyService productionLineTechnologyService;
 	
 	/***
-	 * -添加工艺生产线工艺
+	 * -添加工艺生产线工艺 
 	 * @param entity
 	 * @return
 	 */
 	@PostMapping("/save")
-	public R<Boolean> save(ProductionLineTechnology entity){
+	public R<Boolean> save(@RequestBody List<ProductionLineTechnology> list){
 		R<Boolean> r = new R<Boolean>();
-		if(entity!=null && !StringUtils.isEmpty(entity.getProductionLineCode()) && entity.getSerialNumber()!=null && !StringUtils.isEmpty(entity.getTechnologyCode())) {
-			entity.setId(UUID.randomUUID().toString());
+		if(list!=null && list.size()>0) {
+			Integer maxSerialNumber = productionLineTechnologyService.maxSerialNumber(list.get(0).getProductionLineCode());
+			maxSerialNumber=maxSerialNumber==null?0:maxSerialNumber;
+			for(int i=0,size=list.size();i<size;i++) {
+				maxSerialNumber+=1;
+				list.get(i).setSerialNumber(maxSerialNumber);
+			}
 			r.setCode(R.SUCCESS);
-			r.setData(productionLineTechnologyService.insert(entity));
+			r.setData(productionLineTechnologyService.insertBatch(list));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setData(false);
@@ -54,12 +58,12 @@ public class ProductionLineTechnologyController {
 	 * @return
 	 */
 	@PostMapping("/update")
-	public R<Boolean> update(String id, Integer serialNumber){
+	public R<Boolean> update(String id, String technologyCode){
 		R<Boolean> r = new R<Boolean>();
-		if(!StringUtils.isEmpty(id) && serialNumber!=null) {
+		if(!StringUtils.isEmpty(id) && technologyCode!=null) {
 			ProductionLineTechnology entity = new ProductionLineTechnology();
 			entity.setId(id);
-			entity.setSerialNumber(serialNumber);
+			entity.setTechnologyCode(technologyCode);
 			r.setCode(R.SUCCESS);
 			r.setData(productionLineTechnologyService.updateById(entity));
 		}else {
@@ -90,7 +94,7 @@ public class ProductionLineTechnologyController {
 	}
 	
 	/***
-	 * -查询工艺生产线工艺
+	 * -查询工艺生产线工艺s
 	 * @param productionLineCode
 	 * @return
 	 */

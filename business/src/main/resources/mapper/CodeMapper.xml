@@ -3,6 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.dao.CodeMapper">
 
+    <resultMap type="com.hlxd.microcloud.entity.ProCode" id="meMap">
+        <result column="code" property="qrCode"/>
+        <result column="parentCode" property="parentCode"/>
+        <result column="produceDate" property="produceDate"/>
+        <result column="productId" property="productId"/>
+        <result column="machineCode" property="machineCode"/>
+        <result column="verifyStatus" property="verifyStatus"/>
+        <result column="type" property="type"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
 
     <resultMap type="com.hlxd.microcloud.entity.ProCode" id="baseMap">
         <result column="code" property="qrCode"/>
@@ -68,6 +78,14 @@
 				else 4 end
 				) = tpl.qr_code
         where code = #{qrCode}
+    </select>
+
+    <select id="getCodeByWrap" resultMap="meMap" parameterType="java.lang.String">
+        SELECT code FROM t_pro_code t WHERE t.machine_code=#{machineCode} and t.produce_date BETWEEN #{doBeginDate} AND #{doEndDate}
+    </select>
+
+    <select id="getCodeByTime" resultMap="meMap" parameterType="java.lang.String">
+        SELECT code FROM t_pro_code t WHERE t.produce_date BETWEEN #{startFeedingDate} AND #{endFeedingDate}
     </select>
 
 

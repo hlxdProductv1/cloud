@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.mapper.CollectionPointMapper">
 
+	<select id="selectcollectionPointVo" resultType="com.hlxd.microcloud.entity.vo.CollectionPointVo">
+		select
+			e.equipment_code as equipmentCode,
+			e.equipment_name as equipmentName,
+			b.brand_code as brandCode,
+			b.brand_name as brandName,
+			ty.technology_code as technologyCode,
+			ty.technology_name as technologyName,
+			t.standard_code as standardCode,
+			t.standard_name as standardName,
+			cp.collection_point as collectionPoint
+		from t_pro_collection_point cp
+		left join t_pro_equipment e
+		on cp.equipment_code = e.equipment_code
+		left join t_pro_technology_standard t
+		on cp.standard_code = t.standard_code
+		left join t_pro_brand b
+		on t.cigarette_code = b.brand_code
+		left join t_pro_technology ty
+		on t.technology_code = ty.technology_code
+		where e.organize_code = #{organizeCode}
+		<if test='brandCode!=null and brandCode!=""'>
+			and b.brand_code = #{brandCode}
+		</if>
+		<if test='technologyCode!=null and technologyCode!=""'>
+			and ty.technology_code = #{technologyCode}
+		</if>
+		<if test='equipmentName!=null and equipmentName!=""'>
+			and e.equipment_name like CONCAT('%',#{equipmentName},'%')
+		</if>
+		<if test='standardName!=null and standardName!=""'>
+			and t.standard_name like CONCAT('%',#{standardName},'%')
+		</if>
+		<if test='collectionPoint!=null and collectionPoint!=""'>
+			and cp.collection_point like CONCAT('%',#{collectionPoint},'%')
+		</if>
+	</select>
 </mapper>

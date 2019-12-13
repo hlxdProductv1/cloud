@@ -20,4 +20,8 @@
 		on ws.workshop_section_code = t.workshop_section_code
 		where pl.production_line_code = #{productionLineCode} order by pl.serial_number
     </select>
+    <!-- 查询最大排序号 -->
+    <select id="maxSerialNumber" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select max(serial_number) from t_pro_production_line_technology where production_line_code = #{productionLineCode};
+    </select>
 </mapper>

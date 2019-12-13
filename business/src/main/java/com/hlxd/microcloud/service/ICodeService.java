@@ -2,6 +2,7 @@ package com.hlxd.microcloud.service;
 
 import com.hlxd.microcloud.entity.ProCode;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface ICodeService {
 
     ProCode getCodeDetails(Map map);
+
+    List<ProCode> getCodeByWrap(String machineCode, String doBeginDate, String doEndDate);
+
+    List<ProCode> getCodeByTime(String startFeedingDate,String endFeedingDate);
 
 }

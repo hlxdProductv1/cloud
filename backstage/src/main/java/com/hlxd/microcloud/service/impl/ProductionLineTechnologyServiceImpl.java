@@ -26,4 +26,10 @@ public class ProductionLineTechnologyServiceImpl extends ServiceImpl<ProductionL
 		return productionLineTechnologyMapper.productionLine(productionLineCode);
 	}
 
+	@Override
+	public Integer maxSerialNumber(String productionLineCode) {
+		// TODO Auto-generated method stub
+		return productionLineTechnologyMapper.maxSerialNumber(productionLineCode);
+	}
+
 }

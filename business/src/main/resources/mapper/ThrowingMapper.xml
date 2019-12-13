@@ -3,6 +3,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hlxd.microcloud.dao.ThrowingMapper">
 
+    <resultMap type="com.hlxd.microcloud.entity.Throwing" id="meMap">
+        <result column="id" property="id"/>
+        <result column="throwing_number" property="throwingNumber"/>
+        <result column="plan_begin_date" property="planBeginDate"/>
+        <result column="plan_end_date" property="planEndDate"/>
+        <result column="do_begin_date" property="doBeginDate"/>
+        <result column="do_end_date" property="doEndDate"/>
+        <result column="blending_weight" property="blendingWeight"/>
+        <result column="product_weight" property="productWeight"/>
+        <result column="line_code" property="lineCode"/>
+        <result column="section_id" property="sectionCode"/>
+        <result column="class_id" property="classId"/>
+        <result column="className" property="className"/>
+        <result column="blending_number" property="blendingNumber"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
 
     <resultMap type="com.hlxd.microcloud.entity.Throwing" id="baseMap">
         <result column="id" property="id"/>
@@ -216,6 +233,10 @@ on tpb.blending_number = tpbd.blending_number
 where tpt.throwing_number =#{throwingNumber}
     </select>
 
+
+    <select id="getThrowByOrder" resultMap="meMap" parameterType="java.lang.String">
+        SELECT t.do_begin_date, t.do_end_date  from t_pro_throwing t WHERE t.throwing_number=#{throwingNumber}
+    </select>
 
 
 

@@ -20,11 +20,17 @@ import java.util.Map;
  */
 @Service
 public class FeedingServiceImpl implements IFeedingService {
-    @Autowired
+
+    @Autowired(required = false)
     private FeedingMapper feedingMapper;
 
     @Override
     public List<FeedingRecord> getFeedingRecord(Map map) {
         return feedingMapper.getFeedingRecord(map);
+    }
+
+    @Override
+    public FeedingRecord selectByFeed(String feedTime, String feedingMachineCode) {
+        return feedingMapper.selectByFeed(feedTime,feedingMachineCode);
     }
 }

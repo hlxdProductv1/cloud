@@ -19,4 +19,10 @@ public interface ProductionLineTechnologyService extends IService<ProductionLine
 	 * @return
 	 */
 	List<ProductionLineVo> productionLine(String productionLineCode);
+	/***
+	 * -查询最大编号
+	 * @param productionLineCode
+	 * @return
+	 */
+	Integer maxSerialNumber(String productionLineCode);
 }

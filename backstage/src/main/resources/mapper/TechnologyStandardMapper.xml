@@ -10,6 +10,7 @@
 		ts.technology_code as technologyCode,
 		t.technology_name as technologyName,
 		ts.cigarette_code as cigaretteCode,
+		b.brand_name as cigaretteName,
 		ts.standard_type as standardType,
 		ts.unit,
 		ts.standard_value as standardValue,
@@ -19,10 +20,17 @@
 		from t_pro_technology_standard ts
 		inner join t_pro_technology t
 		on ts.technology_code = t.technology_code
-		<where>
-		    <if test='technologyCode!=null and technologyCode!=""'>
-		        and ts.technology_code = #{technologyCode}
+		left join t_pro_brand b
+		on b.brand_code = ts.cigarette_code
+		where t.organize_code = #{organizeCode}
+			<if test='brandCode!=null and brandCode!=""'>
+		        and b.brand_code = #{brandCode}
 		    </if>
-		</where>
+		    <if test='standardName!=null and standardName!=""'>
+		        and ts.standard_name like CONCAT('%',#{standardName},'%') 
+		    </if>
+		    <if test='technologyCode!=null and technologyCode!=""'>
+		        and t.technology_code = #{technologyCode}
+		    </if>
     </select>
 </mapper>

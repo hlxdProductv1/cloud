@@ -6,6 +6,7 @@ import com.hlxd.microcloud.service.WrapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,5 +28,15 @@ public class WrapServiceImpl implements WrapService {
     public WrapOrder getWrapOrder(Map map) {
         return wrapMapper.getWrapOrder(map);
 
+    }
+
+    @Override
+    public List<WrapOrder> selectByWrapOrder(String machineCode, String produceDate, String classId) {
+        return wrapMapper.selectByWrapOrder(machineCode,produceDate,classId);
+    }
+
+    @Override
+    public WrapOrder selectByNumber(String wrapsNumber) {
+        return wrapMapper.selectByNumber(wrapsNumber);
     }
 }
