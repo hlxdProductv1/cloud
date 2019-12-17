@@ -145,16 +145,16 @@ tpmd.produce_date as consume_details_produceDate,
 tpmd.purchase_number as consume_details_purchaseNumber,
 tpmd.supplier as consume_details_supplier,
 tpmd.remark as consume_details_remark
-from t_pro_warpOrder tpw
+from t_pro_wrap_order tpw
 left join  t_pro_verification tpv
 on tpw.wraps_number = tpv.batch_number
 left join t_pro_verification_details tpvd
 on tpv.id = tpvd.verification_id
 left join t_pro_technology_standard tpts
 on tpts.standard_code = tpvd.item_code
-left join t_pro_materialConsume tpm
+left join t_pro_material_consume tpm
 on tpw.wraps_number = tpm.batch_number
-left join t_pro_materialConsume_details tpmd
+left join t_pro_material_consume_details tpmd
 on tpmd.consume_id=tpm.id
 left join t_pro_material tpmt
 on tpm.material_code = tpmt.material_code
@@ -165,11 +165,11 @@ and tpw.equipment_code=#{machineCode}
 
     <select id="selectByWrapOrder" resultMap="meMap" parameterType="java.lang.String">
     SELECT t.do_begin_date,t.do_end_date
-    from t_pro_warpOrder t WHERE t.class_id =#{classId} AND t.produce_date=#{produceDate} AND t.equipment_code=#{machineCode}
+    from t_pro_wrap_order t WHERE t.class_id =#{classId} AND t.produce_date=#{produceDate} AND t.equipment_code=#{machineCode}
     </select>
 
     <select id="selectByNumber" resultMap="meMap" parameterType="java.lang.String">
-        SELECT t.equipment_code,t.do_begin_date,t.do_end_date FROM t_pro_warpOrder t WHERE t.wraps_number=#{wrapsNumber}
+        SELECT t.equipment_code,t.do_begin_date,t.do_end_date FROM t_pro_wrap_order t WHERE t.wraps_number=#{wrapsNumber}
     </select>
 
 

@@ -16,6 +16,6 @@
   </sql>
 
   <select id="selectByMaterCode" resultMap="BaseResultMap" parameterType="java.lang.String">
-    SELECT t.batch_number FROM t_pro_materialConsume t WHERE t.material_code =#{materialCode}
+    SELECT t.batch_number FROM t_pro_material_consume t WHERE t.material_code =#{materialCode}
   </select>
 </mapper>

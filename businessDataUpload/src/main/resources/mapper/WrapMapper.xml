@@ -4,7 +4,7 @@
 <mapper namespace="com.hlxd.microcloud.dao.WrapsMapper">
 
     <insert id="batchInsert" parameterType="java.util.ArrayList">
-        insert into t_pro_warpOrder
+        insert into t_pro_wrap_order
         (id,wraps_number,equipment_code,produce_date,class_id,brand_code,plan_begin_date,
         plan_end_date,plan_quantity,do_begin_date,do_end_date,do_quantity,remark)
         values
