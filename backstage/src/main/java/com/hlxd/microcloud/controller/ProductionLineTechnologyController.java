@@ -94,7 +94,7 @@ public class ProductionLineTechnologyController {
 	}
 	
 	/***
-	 * -查询工艺生产线工艺s
+	 * -查询工艺生产线工艺
 	 * @param productionLineCode
 	 * @return
 	 */

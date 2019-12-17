@@ -19,6 +19,6 @@
 		        and superior_equipment_code = #{superiorEquipmentCode}
 		    </if>
 		</where>
-		order by equipment_name
+		order by (equipment_name-0)
     </select>
 </mapper>
