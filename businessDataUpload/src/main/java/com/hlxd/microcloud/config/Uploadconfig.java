@@ -462,8 +462,8 @@ public class Uploadconfig {
                                     feedingRecord.setThrowingNumber(rs.getString(i));
                                     break;case "start_feeding_date": feedingRecord.setStartFeedingDate(rs.getString(i));
                                     break;case "end_feeding_date": feedingRecord.setEndFeedingDate(rs.getString(i));
-                                    break;case "equipment_code": feedingRecord.setMachineCode(rs.getString(i));
-                                    break;case "feeding_equipment_code": feedingRecord.setFeedingMachineCode(rs.getString(i));
+                                    break;case "equipment_code": feedingRecord.setEquipmentCode(rs.getString(i));
+                                    break;case "feeding_equipment_code": feedingRecord.setFeedingEquipmentCode(rs.getString(i));
                                     break;case "remark": feedingRecord.setRemark(rs.getString(i));
                                     break;case "organize_code": feedingRecord.setOrganizeCode(rs.getString(i));
                                     break;default: break;

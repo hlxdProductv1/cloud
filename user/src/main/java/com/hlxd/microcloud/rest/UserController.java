@@ -56,7 +56,7 @@ public class UserController {
             paramMap.put("scope", "all");
             returnMap =authService.getToken(paramMap);
             UserInfo userInfo = userService.getUserInfo(username,password);
-            JedisPoolUtils.setPool(String.valueOf(returnMap.get("access_token")),JSON.toJSONString(userInfo));
+            JedisPoolUtils.setPool(0,String.valueOf(returnMap.get("access_token")),JSON.toJSONString(userInfo));
         }else{
             returnMap.put("msg","用户不存在");
         }

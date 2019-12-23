@@ -268,7 +268,6 @@
         <module>backstage</module>
         <module>business</module>
         <module>cacheServer</module>
-        <module>dataUpload</module>
         <module>businessDataUpload</module>
     </modules>
 </project>
