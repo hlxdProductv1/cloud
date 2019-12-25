@@ -22,7 +22,6 @@ public interface CollectionPointMapper extends BaseMapper<CollectionPoint> {
 	 * -查询数采绑定设备
 	 * @param page
 	 * @param organizeCode 生产厂
-	 * @param brandCode 品牌
 	 * @param technologyCode 工艺
 	 * @param equipmentName 设备
 	 * @param standardName 生产标准
@@ -30,7 +29,7 @@ public interface CollectionPointMapper extends BaseMapper<CollectionPoint> {
 	 * @return
 	 */
 	List<CollectionPointVo> selectcollectionPointVo(Pagination page,@Param("organizeCode") String organizeCode, 
-			@Param("brandCode")String brandCode, @Param("technologyCode")String technologyCode, 
+			@Param("technologyCode")String technologyCode, 
 			@Param("equipmentName")String equipmentName, @Param("standardName")String standardName, 
 			@Param("collectionPoint")String collectionPoint);
 }

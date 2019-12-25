@@ -23,9 +23,10 @@ public class TechnologyStandardServiceImpl extends ServiceImpl<TechnologyStandar
 	private TechnologyStandardMapper technologyStandardMapper;
 	
 	@Override
-	public Page<TechnologyStandardVo> list(Page<TechnologyStandardVo> page, String organizeCode, String brandCode,
-			String standardName, String technologyCode) {
-		return page.setRecords(technologyStandardMapper.list(page,organizeCode,brandCode,standardName,technologyCode));
+	public Page<TechnologyStandardVo> list(Page<TechnologyStandardVo> page, String standardName,
+			String technologyCode) {
+		return page.setRecords(technologyStandardMapper.list(page, standardName, technologyCode));
 	}
+
 
 }

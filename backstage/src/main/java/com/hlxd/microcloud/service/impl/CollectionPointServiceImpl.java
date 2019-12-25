@@ -23,10 +23,10 @@ public class CollectionPointServiceImpl extends ServiceImpl<CollectionPointMappe
 	
 	@Override
 	public Page<CollectionPointVo> selectcollectionPointVo(Page<CollectionPointVo> page, String organizeCode,
-			String brandCode, String technologyCode, String equipmentName, String standardName,
+			String technologyCode, String equipmentName, String standardName,
 			String collectionPoint) {
 		// TODO Auto-generated method stub
-		return page.setRecords(collectionPointMapper.selectcollectionPointVo(page, organizeCode, brandCode, technologyCode, equipmentName, standardName, collectionPoint));
+		return page.setRecords(collectionPointMapper.selectcollectionPointVo(page, organizeCode, technologyCode, equipmentName, standardName, collectionPoint));
 	}
 
 }

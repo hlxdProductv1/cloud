@@ -14,13 +14,14 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
  * @date 2019年11月20日
  */
 public interface TechnologyStandardMapper extends BaseMapper<TechnologyStandard> {
-
+	
 	/***
 	 * -展示生产工艺标准
 	 * @param page
 	 * @param technologyCode
 	 * @return
 	 */
-	List<TechnologyStandardVo> list(Pagination page, @Param("organizeCode")String organizeCode, @Param("brandCode")String brandCode,
-			@Param("standardName")String standardName, @Param("technologyCode")String technologyCode);
+	List<TechnologyStandardVo> list(Pagination page, @Param("standardName")String standardName, 
+			@Param("technologyCode")String technologyCode);
+
 }

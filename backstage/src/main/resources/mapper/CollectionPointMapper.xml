@@ -6,8 +6,6 @@
 		select
 			e.equipment_code as equipmentCode,
 			e.equipment_name as equipmentName,
-			b.brand_code as brandCode,
-			b.brand_name as brandName,
 			ty.technology_code as technologyCode,
 			ty.technology_name as technologyName,
 			t.standard_code as standardCode,
@@ -18,14 +16,9 @@
 		on cp.equipment_code = e.equipment_code
 		left join t_pro_technology_standard t
 		on cp.standard_code = t.standard_code
-		left join t_pro_brand b
-		on t.cigarette_code = b.brand_code
 		left join t_pro_technology ty
 		on t.technology_code = ty.technology_code
 		where e.organize_code = #{organizeCode}
-		<if test='brandCode!=null and brandCode!=""'>
-			and b.brand_code = #{brandCode}
-		</if>
 		<if test='technologyCode!=null and technologyCode!=""'>
 			and ty.technology_code = #{technologyCode}
 		</if>

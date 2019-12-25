@@ -9,6 +9,10 @@ public class TechnologyStandardVo implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/***
+	 * id
+	 */
+	private String id;
 	/**
 	 * 指标代码
 	 */
