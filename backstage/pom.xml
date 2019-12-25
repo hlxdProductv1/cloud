@@ -122,16 +122,25 @@
         </dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- 热部署 -->
-				<configuration>
-					<fork>true</fork>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	 <build>
+        <finalName>backstage</finalName>
+        <plugins>
+            <plugin>  <!-- 该插件的主要功能是进行项目的打包发布处理 -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>  <!-- 设置程序执行的主类 -->
+                	<fork>true</fork>
+                    <mainClass>com.hlxd.microcloud.BackstageServerApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>
