@@ -1,5 +1,6 @@
 package com.hlxd.microcloud.entity;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -21,36 +22,46 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_pro_technology_standard")
-public class TechnologyStandard extends Model<TechnologyStandard> {
+@TableName("t_pro_technology_standard_value")
+public class TechnologyStandardValue extends Model<TechnologyStandardValue> {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 指标代码
      */
-    @TableId(value = "standard_code", type = IdType.UUID)
+    @TableId(type = IdType.UUID)
+    private String id;
+    /**
+     * 指标代码
+     */
+    @TableField("standard_code")
     private String standardCode;
+  
     /**
-     * 指标名称
+     * 卷烟规格
      */
-    @TableField("standard_name")
-    private String standardName;
-    /**
-     * 所属工艺
-     */
-    @TableField("technology_code")
-    private String technologyCode;
+    @TableField("cigarette_code")
+    private String cigaretteCode;
     
     /**
-     * 指标类型 1.定量2.定性
+     * 标准值
      */
-    @TableField("standard_type")
-    private Integer standardType;
+    @TableField("standard_value")
+    private BigDecimal standardValue;
     /**
-     * 单位
+     * 最大值
      */
-    private String unit;
+    private BigDecimal maximum;
+    /**
+     * 最小值
+     */
+    private BigDecimal minimum;
+    /**
+     * 分数
+     */
+    private BigDecimal fraction;
+
 
     @Override
     protected Serializable pkVal() {

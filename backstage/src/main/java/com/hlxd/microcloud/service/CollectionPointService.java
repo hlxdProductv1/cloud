@@ -23,6 +23,6 @@ public interface CollectionPointService extends IService<CollectionPoint> {
 	 * @param collectionPoint 数采点
 	 * @return
 	 */
-	Page<CollectionPointVo> selectcollectionPointVo(Page<CollectionPointVo> page, String organizeCode, String brandCode,
+	Page<CollectionPointVo> selectcollectionPointVo(Page<CollectionPointVo> page, String organizeCode,
 			String technologyCode, String equipmentName, String standardName, String collectionPoint);
 }

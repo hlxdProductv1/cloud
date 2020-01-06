@@ -87,8 +87,7 @@ public class CollectionPointController {
 		R<Page<CollectionPointVo>> r = new R<>();
 		if(!StringUtils.isEmpty(organizeCode) && current!=null && size!=null) {
 			r.setCode(R.SUCCESS);
-			r.setData(collectionPointService.selectcollectionPointVo(new Page<CollectionPointVo>(current, size), organizeCode,
-					brandCode, technologyCode, equipmentName, standardName, collectionPoint));
+			r.setData(collectionPointService.selectcollectionPointVo(new Page<CollectionPointVo>(current, size), organizeCode, technologyCode, equipmentName, standardName, collectionPoint));
 		}else {
 			r.setCode(R.NULL_PARAMETER);
 			r.setMsg(R.NULL_PARAMETER_MSG);

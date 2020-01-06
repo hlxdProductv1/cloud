@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hlxd.microcloud.mapper.TechnologyStandardMapper">
-    
-    <!-- 生产工艺标准查询 -->
+<mapper namespace="com.hlxd.microcloud.mapper.TechnologyStandardValueMapper">
+     <!-- 生产工艺标准查询 -->
     <select id="list" parameterType="java.lang.String" resultType="com.hlxd.microcloud.entity.vo.TechnologyStandardVo">
 		select 
+		tsv.id as id,
 		ts.standard_code as standardCode,
 		ts.standard_name as standardName,
 		ts.technology_code as technologyCode,
 		t.technology_name as technologyName,
+		tsv.cigarette_code as cigaretteCode,
+		b.brand_name as cigaretteName,
 		ts.standard_type as standardType,
-		ts.unit
+		ts.unit,
+		tsv.standard_value as standardValue,
+		tsv.maximum,
+		tsv.minimum,
+		tsv.fraction 
 		from t_pro_technology_standard ts
+        inner join t_pro_technology_standard_value tsv
+        on ts.standard_code = tsv.standard_code
 		inner join t_pro_technology t
 		on ts.technology_code = t.technology_code
-		<where> 
+		left join t_pro_brand b
+		on b.brand_code = tsv.cigarette_code
+		where t.organize_code = #{organizeCode}
+			<if test='brandCode!=null and brandCode!=""'>
+		        and b.brand_code = #{brandCode}
+		    </if>
 		    <if test='standardName!=null and standardName!=""'>
 		        and ts.standard_name like CONCAT('%',#{standardName},'%') 
 		    </if>
 		    <if test='technologyCode!=null and technologyCode!=""'>
 		        and t.technology_code = #{technologyCode}
 		    </if>
-		</where>
 		    order by ts.standard_name
     </select>
-    
 </mapper>

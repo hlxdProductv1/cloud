@@ -6,10 +6,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -41,10 +41,17 @@ public class ExcleData {
 		HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet("导入数据");
         HSSFRow row = sheet.createRow(0);
+        // 设置单元格格式为文本格式
+        HSSFCellStyle textStyle = workbook.createCellStyle();
+        HSSFDataFormat format = workbook.createDataFormat();
+        textStyle.setDataFormat(format.getFormat("@"));
         for(int i=0;i<headers.length;i++){
             HSSFCell cell = row.createCell(i);
             HSSFRichTextString text = new HSSFRichTextString(headers[i]);
             cell.setCellValue(text);
+            //设置单元格格式为"文本"
+            sheet.setColumnWidth(0, 2000);  
+            sheet.setDefaultColumnStyle(i, textStyle);
         }
         response.setContentType("application/octet-stream");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
