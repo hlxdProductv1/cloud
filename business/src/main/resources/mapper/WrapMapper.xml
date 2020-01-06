@@ -118,7 +118,7 @@ tpvd.id as wrap_spot_details_id,
 tpvd.verification_id as wrap_spot_details_verificationId,
 tpvd.item_code as wrap_spot_details_itemCode,
 tpts.standard_name as wrap_spot_details_itemName,
-tpts.standard_value as wrap_spot_details_standValue,
+tptsv.standard_value as wrap_spot_details_standValue,
 tpvd.simple_max as wrap_spot_details_max,
 tpvd.simple_min as wrap_spot_details_min,
 tpvd.average as wrap_spot_details_average,
@@ -152,6 +152,8 @@ left join t_pro_verification_details tpvd
 on tpv.id = tpvd.verification_id
 left join t_pro_technology_standard tpts
 on tpts.standard_code = tpvd.item_code
+left join t_pro_technology_standard_value tptsv
+on tpts.standard_code = tptsv.standard_code
 left join t_pro_material_consume tpm
 on tpw.wraps_number = tpm.batch_number
 left join t_pro_material_consume_details tpmd

@@ -9,6 +9,10 @@ import javax.net.ssl.TrustManager;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -122,6 +126,20 @@ public class CommonUtil {
      */
     public static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
+    }
+
+
+    public static Date UTCToCST(String UTCStr, String format) throws ParseException {
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        date = sdf.parse(UTCStr);
+        System.out.println("UTC时间: " + date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 8);
+        //calendar.getTime() 返回的是Date类型，也可以使用calendar.getTimeInMillis()获取时间戳
+        //System.out.println("北京时间: " + calendar.getTime());
+        return calendar.getTime();
     }
 
 
